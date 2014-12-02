@@ -165,8 +165,6 @@ void initLED()
 
 ISR(WDT_vect)
 {
-	void (*run)();
-
 	seconds++;	// increment 'clock'
 
 #ifdef DEBUG 
