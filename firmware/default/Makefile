@@ -25,7 +25,7 @@ ASMFLAGS += -x assembler-with-cpp -Wa,-gdwarf2
 
 ## Linker flags
 LDFLAGS = $(COMMON)
-LDFLAGS += 
+LDFLAGS +=  -Wl,-Map=UM_LMA.map
 
 
 ## Intel Hex file production flags
@@ -43,7 +43,7 @@ OBJECTS = UM_LMA.o
 LINKONLYOBJECTS = 
 
 ## Build
-all: $(TARGET) UM_LMA.hex UM_LMA.eep size
+all: $(TARGET) UM_LMA.hex UM_LMA.eep UM_LMA.lss size
 
 ## Compile
 UM_LMA.o: ../UM_LMA.c
@@ -69,7 +69,8 @@ size: ${TARGET}
 ## Clean target
 .PHONY: clean
 clean:
-	-rm -rf $(OBJECTS) UM_LMA.elf dep/* UM_LMA.hex UM_LMA.eep
+	-rm -rf $(OBJECTS) UM_LMA.elf dep/* UM_LMA.hex UM_LMA.eep UM_LMA.lss UM_LMA.map
+
 
 ## Other dependencies
 -include $(shell mkdir dep 2>NUL) $(wildcard dep/*)

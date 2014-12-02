@@ -12,8 +12,8 @@
 //#define DEBUG		0
 
 #define PERIOD		8			// Delay period between signal (seconds)
-#define WARN_TIME   10			// Delay before warning stars sounding (seconds) every PERIOD seconds
-#define SOS_TIME	20			// Delay before warning stops and SOS starts sounding (seconds) every PERIOD seconds
+#define WARN_TIME   5			// Delay before warning stars sounding (seconds) every PERIOD seconds
+#define SOS_TIME	10			// Delay before warning stops and SOS starts sounding (seconds) every PERIOD seconds
 
 #define DOT			60			// length of dot in ms
 
