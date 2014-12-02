@@ -1,0 +1,13 @@
+eagle.epf
+*.[bs]#[0-9]
+*.eep
+*.elf
+*.hex
+*.lss
+*.map
+*.o
+*.gpi
+*.dri
+*.scr
+*.ods
+*.csv
