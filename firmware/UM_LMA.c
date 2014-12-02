@@ -63,8 +63,12 @@ int main(int argc, char **argv)
 
 	slowClock();
 
-	// Startup signal
-	ok();
+	initADC();
+
+	readVoltage();
+
+	beepNum(getVolts());
+	_delay_ms(2000);
 
 	enableWatchdog();
 
