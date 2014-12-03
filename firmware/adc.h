@@ -2,7 +2,6 @@
 #define _ADC_H
 
 void initADC();
-uint16_t readVoltage();
-uint16_t getVolts();
+uint8_t readVoltage();
 
 #endif

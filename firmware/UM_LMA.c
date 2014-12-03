@@ -8,12 +8,13 @@
 #include <avr/interrupt.h>
 #include <avr/sleep.h>
 #include <util/delay.h> 
+#include "adc.h"
 
 //#define DEBUG		0
 
 #define PERIOD		8			// Delay period between signal (seconds)
-#define WARN_TIME   5			// Delay before warning stars sounding (seconds) every PERIOD seconds
-#define SOS_TIME	10			// Delay before warning stops and SOS starts sounding (seconds) every PERIOD seconds
+#define WARN_TIME   5*60		// Delay before warning stars sounding (seconds) every PERIOD seconds
+#define SOS_TIME	10*60		// Delay before warning stops and SOS starts sounding (seconds) every PERIOD seconds
 
 #define DOT			60			// length of dot in ms
 
@@ -34,6 +35,7 @@ void k();
 void o();
 void s();
 void w();
+void beepNum(uint8_t n);
 void space();
 void dit();
 void dah();
@@ -65,10 +67,11 @@ int main(int argc, char **argv)
 
 	initADC();
 
-	readVoltage();
-
-	beepNum(getVolts());
-	_delay_ms(2000);
+	if (checkVoltage()) {
+		ok();
+	} else {
+		sos();
+	}
 
 	enableWatchdog();
 
@@ -110,6 +113,30 @@ void s()
 void w()
 {
 	dit(); dah(); dah(); space();
+}
+
+void beepDigit(uint8_t d) {
+	uint8_t i;
+
+	if (d == 0) {
+		dah();
+	} else if (d < 10) {
+		for (i = 0; i < d; i++) {
+			dit();
+		}
+	}
+	space();
+}
+
+void beepNum(uint8_t n)
+{
+	uint8_t a, b;
+
+//	a = n / 10U;
+//	b = n - a * 10U;
+
+	beepDigit(a);
+	beepDigit(b);
 }
 
 void space()
