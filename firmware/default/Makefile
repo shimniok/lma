@@ -37,7 +37,7 @@ HEX_EEPROM_FLAGS += --change-section-lma .eeprom=0 --no-change-warnings
 
 
 ## Objects that must be built in order to link
-OBJECTS = UM_LMA.o 
+OBJECTS = UM_LMA.o adc.o 
 
 ## Objects explicitly added by the user
 LINKONLYOBJECTS = 
@@ -47,6 +47,9 @@ all: $(TARGET) UM_LMA.hex UM_LMA.eep UM_LMA.lss size
 
 ## Compile
 UM_LMA.o: ../UM_LMA.c
+	$(CC) $(INCLUDES) $(CFLAGS) -c  $<
+
+adc.o: ../adc.c
 	$(CC) $(INCLUDES) $(CFLAGS) -c  $<
 
 ##Link

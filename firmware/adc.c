@@ -13,8 +13,7 @@ void initADC()
 }
 
 /** use onboard ADC to read voltage of the voltage divider versus 1.1V reference;
- * Voltage divider features two resistors, one 2.8X greater than the other. E.g.,
- * 28K and 10K. At 4.2V, ADC will read ~ 255, at 3.7V, 226, 3.3V 201, etc.
+ * Voltage divider features two resistors, 220K and 100K giving 0.9375V with VIN=3V
  */
 uint16_t readVoltage()
 {
@@ -47,9 +46,10 @@ uint16_t readVoltage()
 	}
 	volts >>= 5;
 
-	volts *= 10;
-	volts += 58;
-	volts /= 249;
+	// Assumes 220K / 100K voltage divider, 1.1V internal ref.
+	// Gives m=291, b=-0.68, so we use m=29 and b=-7
+	volts -= 7;
+	volts /= 29;
 
 	// set pin as input, HiZ
 	DDRB &= ~_BV(PB4);	
