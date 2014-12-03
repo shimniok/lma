@@ -4,7 +4,7 @@
 
 ## General Flags
 PROJECT = UM_LMA
-MCU = attiny13
+MCU = attiny13a
 TARGET = UM_LMA.elf
 CC = avr-gcc
 
@@ -15,7 +15,7 @@ COMMON = -mmcu=$(MCU)
 
 ## Compile options common for all C compilation units.
 CFLAGS = $(COMMON)
-CFLAGS += -Wall -gdwarf-2 -std=gnu99            -Os -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums
+CFLAGS += -Wall -gdwarf-2 -std=gnu99  -fno-inline-small-functions  -Os -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums
 CFLAGS += -MD -MP -MT $(*F).o -MF dep/$(@F).d 
 
 ## Assembly specific flags
@@ -37,7 +37,7 @@ HEX_EEPROM_FLAGS += --change-section-lma .eeprom=0 --no-change-warnings
 
 
 ## Objects that must be built in order to link
-OBJECTS = UM_LMA.o adc.o 
+OBJECTS = UM_LMA.o adc.o morse.o 
 
 ## Objects explicitly added by the user
 LINKONLYOBJECTS = 
@@ -50,6 +50,9 @@ UM_LMA.o: ../UM_LMA.c
 	$(CC) $(INCLUDES) $(CFLAGS) -c  $<
 
 adc.o: ../adc.c
+	$(CC) $(INCLUDES) $(CFLAGS) -c  $<
+
+morse.o: ../morse.c
 	$(CC) $(INCLUDES) $(CFLAGS) -c  $<
 
 ##Link

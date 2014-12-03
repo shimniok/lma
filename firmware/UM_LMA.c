@@ -9,14 +9,13 @@
 #include <avr/sleep.h>
 #include <util/delay.h> 
 #include "adc.h"
+#include "morse.h"
 
 //#define DEBUG		0
 
 #define PERIOD		8			// Delay period between signal (seconds)
 #define WARN_TIME   5*60		// Delay before warning stars sounding (seconds) every PERIOD seconds
 #define SOS_TIME	10*60		// Delay before warning stops and SOS starts sounding (seconds) every PERIOD seconds
-
-#define DOT			60			// length of dot in ms
 
 #define BUZZ		0			// PB0
 #define LED			2			// PB3
@@ -29,16 +28,6 @@
 long seconds = 1;				// 2^32 = 4294967296 seconds = 7 weeks, way more than enough; int isn't enough
 long pause = PERIOD;
 
-void ok();
-void sos();
-void k();
-void o();
-void s();
-void w();
-void beepNum(uint8_t n);
-void space();
-void dit();
-void dah();
 void initBuzzer();
 void initLED();
 void disableWatchdog();
@@ -81,43 +70,6 @@ int main(int argc, char **argv)
 		set_sleep_mode(SLEEP_MODE_PWR_DOWN);
 		sleep_mode();
 	}
-}
-
-void ok()
-{
-	ledOn();
-	o(); k();
-	ledOff();
-}
-
-void sos()
-{
-	s(); o(); s();
-}
-
-void k()
-{
-	dah(); dit(); dah(); space();
-}
-
-void o()
-{
-	dah(); dah(); dah(); space();
-}
-
-void s()
-{
-	dit(); dit(); dit(); space();
-}
-
-void w()
-{
-	dit(); dah(); dah(); space();
-}
-
-void space()
-{
-	_delay_ms(DOT*2); // because we've already delayed 1x
 }
 
 void dit()
