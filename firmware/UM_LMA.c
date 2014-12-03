@@ -115,30 +115,6 @@ void w()
 	dit(); dah(); dah(); space();
 }
 
-void beepDigit(uint8_t d) {
-	uint8_t i;
-
-	if (d == 0) {
-		dah();
-	} else if (d < 10) {
-		for (i = 0; i < d; i++) {
-			dit();
-		}
-	}
-	space();
-}
-
-void beepNum(uint8_t n)
-{
-	uint8_t a, b;
-
-//	a = n / 10U;
-//	b = n - a * 10U;
-
-	beepDigit(a);
-	beepDigit(b);
-}
-
 void space()
 {
 	_delay_ms(DOT*2); // because we've already delayed 1x

@@ -3,12 +3,6 @@
 #include "config.h"
 #include "adc.h"
 
-void initADC()
-{
-	// 1.1V ref, PB3
-	ADMUX = _BV(REFS0) | _BV(MUX1) | _BV(MUX0);
-}
-
 /** use onboard ADC to read voltage of the voltage divider versus 1.1V reference;
  * Voltage divider features two resistors, 220K and 100K giving 0.9375V with VIN=3V
  */
