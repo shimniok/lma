@@ -37,7 +37,7 @@ HEX_EEPROM_FLAGS += --change-section-lma .eeprom=0 --no-change-warnings
 
 
 ## Objects that must be built in order to link
-OBJECTS = UM_LMA.o adc.o morse.o 
+OBJECTS = UM_LMA.o adc.o morse.o buzzer.o 
 
 ## Objects explicitly added by the user
 LINKONLYOBJECTS = 
@@ -53,6 +53,9 @@ adc.o: ../adc.c
 	$(CC) $(INCLUDES) $(CFLAGS) -c  $<
 
 morse.o: ../morse.c
+	$(CC) $(INCLUDES) $(CFLAGS) -c  $<
+
+buzzer.o: ../buzzer.c
 	$(CC) $(INCLUDES) $(CFLAGS) -c  $<
 
 ##Link

@@ -1,56 +1,39 @@
-/** UM LMA - ultra micro lost model alarm firmware
- * Michael Shimniok http://www.bot-thoughts.com/
+/** ATtiny13(A) Lost Model Alarm firmware
+ *
+ * Sounds morse code "W" (warning) after a preset
+ * delay, and after a further delay, "SOS" (mayday). 
+ * The program utilizes sleep mode to conserve battery
+ * power and disables peripherals between beeps.  The 
+ * program is originally designed for an ultra-light
+ * LMA for ultra micro (UM) models like the Hobbyzone
+ * Champ, inspired by losing mine to wind. (I got it
+ * back but still...)
+ *
+ * Michael Shimniok - http://www.bot-thoughts.com
  */
- 
-#define F_CPU	150000
 
+#include "config.h"
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <avr/sleep.h>
 #include <util/delay.h> 
 #include "adc.h"
+#include "buzzer.h"
 #include "morse.h"
-
-//#define DEBUG		0
-
-#define PERIOD		8			// Delay period between signal (seconds)
-#define WARN_TIME   5*60		// Delay before warning stars sounding (seconds) every PERIOD seconds
-#define SOS_TIME	10*60		// Delay before warning stops and SOS starts sounding (seconds) every PERIOD seconds
-
-#define BUZZ		0			// PB0
-#define LED			2			// PB3
-
-#define beepOn()		TCCR0B |= _BV(CS00);
-#define beepOff()		TCCR0B &= ~_BV(CS00);
-#define ledOn()			PORTB  |= _BV(LED);
-#define ledOff()		PORTB  &= ~_BV(LED);
 
 long seconds = 1;				// 2^32 = 4294967296 seconds = 7 weeks, way more than enough; int isn't enough
 long pause = PERIOD;
 
-void initBuzzer();
-void initLED();
 void disableWatchdog();
 void enableWatchdog();
 void slowClock();
 
-
-/** ATtiny13 Lost Model Alarm sounds morse code "W" (warning) after a preset delay, and after a further
- * delay, "SOS" (mayday). The program utilizes sleep mode to conserve battery power and disables peripherals
- * between beeps.  The program is originally designed for an ultra-light LMA for ultra micro (UM) models like
- * the Hobbyzone Champ, inspired by losing mine to wind. (I got it back but still)
- *
- * Michael Shimniok - http://www.bot-thoughts.com
- */
 int main(int argc, char **argv)
 {
 	cli();
 	disableWatchdog();
 
 	initBuzzer();
-#ifdef DEBUG
-	initLED();
-#endif
 
 	slowClock();
 
@@ -70,55 +53,6 @@ int main(int argc, char **argv)
 		set_sleep_mode(SLEEP_MODE_PWR_DOWN);
 		sleep_mode();
 	}
-}
-
-void dit()
-{
-#ifdef DEBUG 
-	ledOn();
-#endif
-	beepOn();
-	_delay_ms(DOT);
-#ifdef DEBUG 
-	ledOff();
-#endif
-	beepOff();
-	_delay_ms(DOT);
-}
-
-void dah()
-{
-#ifdef DEBUG 
-	ledOn();
-#endif
-	beepOn();
-	_delay_ms(DOT*3);
-#ifdef DEBUG 
-	ledOff();
-#endif
-	beepOff();
-	_delay_ms(DOT);
-}
-
-
-void initBuzzer()
-{
-    // Need 3.8kHz tone, F_CPU/2/3800
-	// set freq with output compare register
-    // Want to toggle OC0A on Compare Match: COM0A1=0 (TCCR0A:7), COM0A0=1 (TCCR0A:6) for non-PWM (CTC) mode
-    // CTC mode -- clear on timer compare: WGM02=0 WGM01=1 WGM00=0
-    // Prescale /1: CS02=0 CS01=0 CS00=1
-    TCNT0=0;
-    OCR0A  = F_CPU/2/3800;
-    TCCR0A = _BV(COM0A0) | _BV(WGM01);
-
-	// Set LED and Buzzer as output
-	DDRB |= _BV(BUZZ);
-}
-
-void initLED()
-{
-	DDRB |= _BV(LED);
 }
 
 
