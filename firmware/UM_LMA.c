@@ -8,6 +8,9 @@
  * LMA for ultra micro (UM) models like the Hobbyzone
  * Champ, inspired by losing mine to wind. (I got it
  * back but still...)
+ * 
+ * In addition, the firmware provides a low battery
+ * warning. See adc.c for details.
  *
  * Michael Shimniok - http://www.bot-thoughts.com
  */
@@ -33,10 +36,9 @@ int main(int argc, char **argv)
 	cli();
 	disableWatchdog();
 
-	initBuzzer();
-
 	slowClock();
 
+	initBuzzer();
 	initADC();
 
 	if (checkVoltage()) {
@@ -44,6 +46,20 @@ int main(int argc, char **argv)
 	} else {
 		sos();
 	}
+
+#ifdef DEBUG
+	uint16_t v = getVoltage();
+	uint16_t i;
+
+	for (i = 0x8000; i != 0; i >>= 1) {
+		if (v & i) {
+			dit();
+		} else {
+			dah();
+		}
+		_delay_ms(1000);
+	}
+#endif
 
 	enableWatchdog();
 

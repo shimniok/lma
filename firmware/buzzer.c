@@ -4,7 +4,7 @@
 
 void initBuzzer()
 {
-    // Need 3.8kHz tone, F_CPU/2/3800
+    // Need 3.8kHz tone, 150kHz/2/3800
 	// set freq with output compare register
     // Want to toggle OC0A on Compare Match: COM0A1=0 (TCCR0A:7), COM0A0=1 (TCCR0A:6) for non-PWM (CTC) mode
     // CTC mode -- clear on timer compare: WGM02=0 WGM01=1 WGM00=0
