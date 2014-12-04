@@ -4,7 +4,7 @@ Lose your aircraft? Don't panic; wait for the beep. After the SOS time
 elapses, the Ultra-Micro Lost Model Alarm (umlma) will beep SOS every 10
 seconds for many hours until you find your missing aircraft.
 
-Also, don't run your battery too low. The umlma also reminds you to land
+Also, don't run your aircraft battery too low. The umlma reminds you to land
 and recharge by beeping W in Morse code after the warning time elapses.
 
 Features
@@ -50,13 +50,10 @@ Beeps
 The umlma issues one of several beeps in morse code as follows
 where . is dit (a short tone) and - is dah (a long tone):
 
-        .--  W    Warning time elapsed; time to land and recharge?
-... --- ...  SOS  Just after power on: change your CR1225 battery. 
-                  While flying: SOS time elapsed; is your aircraft lost? Listen for this.
-    --- -.-  OK   CR1225 battery voltage is ok
-	
-  
-  
+ * W    .--          Warning time elapsed; time to land and recharge?
+ * SOS  ... --- ...  On power up: dying CR1225 battery. While flying: SOS time elapsed; is your aircraft lost? Listen for this.
+ * OK   --- -.-      CR1225 battery voltage is ok
+ 
 Time Periods
 ------------
 You can order the umlma with the following time periods pre-programmed:
@@ -64,7 +61,27 @@ You can order the umlma with the following time periods pre-programmed:
   * Warn after 10 minutes; SOS after 20 minutes
   * Warn after 15 minutes; SOS after 30 minutes
 
-Changing the time period requires reprogramming the device.
+Changing the time period requires reprogramming the device. See below.
 
 Reconfiguring
 -------------
+To reconfigure the timeout periods, you'll need to
+  * Grab the source code
+  * Install AVR Studio 4 (Windows only)
+  * Edit the config.h and change the time values
+  * Recompile
+  * Program MCU flash with an AVR programmer and pogo pin adapter with VCC connected to 5V
+  * Contact me at http://www.bot-thoughts.com for more help
+  
+Calibration
+-----------
+The umlma is calibrated for the low voltage threshold at the 'factory'.
+The firmware performs auto-calibration.
+  * Grab the source code
+  * Install AVR Studio 4 (Windows only)
+  * Recompile
+  * Remove the CR1225 battery
+  * Use an AVR programmer with pogo pin adapter and VCC connected to a 5.0V source
+  * Program the eeprom (using the lma.eep file)
+  * After it resets, VCC=5V; the umlma will compute 2.5V threshold and write it to eeprom.
+  * Contact me at http://www.bot-thoughts.com for more help
