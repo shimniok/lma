@@ -79,7 +79,9 @@ uint8_t checkVoltage()
 	uint8_t volts_ok;
 
 	// Take ADC out of shutdown
+#if defined (__AVR_ATtiny13A__)
 	PRR &= ~(1<<PRADC);
+#endif
 	// Enable ADC
 	ADCSRA |= (1<<ADEN);
 	ADCSRA &= ~(1<<ADLAR);
@@ -93,14 +95,14 @@ uint8_t checkVoltage()
 	// Read voltage, multiple samples w/ delay between each
 	for (i = 0; i < 32; i++) {
 		// start conversion
-		ADCSRA |= _BV(ADSC);
+		ADCSRA |= (1<<ADSC);
 		// wait for result
-		while ((ADCSRA & _BV(ADIF)) == 0x0);
+		while ((ADCSRA & (1<<ADIF)) == 0x0);
 		volts += ADCL;
 		volts += ADCH<<8;
 		//volts = ADCH;
 		// reset ADIF
-		ADCSRA |= _BV(ADIF);
+		ADCSRA |= (1<<ADIF);
 		// wait around for a little while
 		_delay_ms(5);
 	}
@@ -113,7 +115,8 @@ uint8_t checkVoltage()
 	// Disable ADC
 	ADCSRA &= ~(1<<ADEN);
 	// Shut down ADC
+#if defined (__AVR_ATtiny13A__)
 	PRR |= (1<<PRADC);
-
+#endif
 	return volts_ok;
 }
