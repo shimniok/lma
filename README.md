@@ -1,7 +1,8 @@
 lma
 ===
-
 Lost Model Alarm for finding your lost aircraft.
+
+[User Guide](https://github.com/shimniok/lma/blob/master/firmware/UserGuide.md)
 
 Ultra Micro park flyer planes like the Hobbyzone Champ or Parkzone UM Corsair are light (~40g) and could be blown downwind and out of sight. That's what happened to my Champ.
 
