@@ -4,7 +4,7 @@
 
 ## General Flags
 PROJECT = lma
-MCU = attiny13a
+MCU = attiny13
 TARGET = lma.elf
 CC = avr-gcc
 
