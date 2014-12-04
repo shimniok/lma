@@ -36,27 +36,27 @@
  */
 
 
-EEMEM uint16_t threshold = 0;	// create .eep with this loc initialized to 0.
-static uint16_t t;				// threshold
-static uint16_t volts;			// recently read voltage
+EEMEM uint16_t cfg_threshold = 0;	// create .eep with this loc initialized to 0.
+static uint16_t threshold;			// threshold
+static uint16_t volts;				// recently read voltage
 
 
 void initADC() {
 	ADMUX = (1<<REFS0)|(1<<MUX1)|(1<<MUX0);
 
 	// Read the threshold ADC value for low battery warning
-	t = eeprom_read_word(&threshold);
+	threshold = eeprom_read_word(&cfg_threshold);
 
 	// Auto-calibrate battery warning threshold.
 	// Zero out threshold location in eeprom.
 	// Then, start MCU with Vcc=5.0V
-	if (t == 0) {
+	if (threshold == 0) {
 		// Get voltage (stored in volts)
 		checkVoltage();
 		// Divide result by 2 to get 2.5V
-		t = volts >> 1;
+		threshold = volts >> 1;
 		// Store the new threshold in eeprom
-		eeprom_write_word(&threshold, t);
+		eeprom_write_word(&cfg_threshold, threshold);
 	}
 }
 
@@ -108,7 +108,7 @@ uint8_t checkVoltage()
 	}
 	volts >>= 5; // average; divide by 32
 
-	volts_ok = (volts > t);		
+	volts_ok = (volts > threshold);		
 
 	// set pin as input, HiZ
 	DDRB &= ~(1<<PB4);	
