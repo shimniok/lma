@@ -10,9 +10,9 @@
  * 
  * Circuit
  * -------
- * The lma is set up to feed a voltage divider with one pin, and read the divided
- * value with the other. We have to use the internal voltage reference. It varies
- * from 1.0V to 1.2V. Also, the resistors in the divider are 5% tolerance.
+ * The lma is set up to feed a voltage divider with one pin (PB3), and read the divided
+ * value with the other (PB4, ADC2). We have to use the internal voltage reference. 
+ * which varies from 1.0V to 1.2V. Also, the resistors in the divider are 5% tolerance.
  * 
  * Calibration
  * -----------
@@ -40,9 +40,9 @@ EEMEM uint16_t cfg_threshold = 0;	// create .eep with this loc initialized to 0.
 static uint16_t threshold;			// threshold
 static uint16_t volts;				// recently read voltage
 
-
+//
 void initADC() {
-	ADMUX = (1<<REFS0)|(1<<MUX1)|(1<<MUX0);
+	ADMUX = (1<<REFS0)|(1<<MUX1); // internal reference, PB4 (ADC2)
 
 	// Read the threshold ADC value for low battery warning
 	threshold = eeprom_read_word(&cfg_threshold);
@@ -85,10 +85,10 @@ uint8_t checkVoltage()
 	// Enable ADC
 	ADCSRA |= (1<<ADEN);
 	ADCSRA &= ~(1<<ADLAR);
-	// set bottom of voltage divider low
-	PORTB &= ~(1<<PB4); 
-	// set pin as output
-	DDRB |= (1<<PB4);
+	// set top of voltage divider high
+	PORTB &= ~(1<<PB3);
+	DDRB |= (1<<PB3);
+	PORTB |= (1<<PB3);
 
 	volts = 0;
 
@@ -110,8 +110,9 @@ uint8_t checkVoltage()
 
 	volts_ok = (volts > threshold);		
 
-	// set pin as input, HiZ
-	DDRB &= ~(1<<PB4);	
+	// Turn off top of divider
+	PORTB &= ~(1<<PB3);
+	DDRB &= ~(1<<PB3);
 	// Disable ADC
 	ADCSRA &= ~(1<<ADEN);
 	// Shut down ADC
