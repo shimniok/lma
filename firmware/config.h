@@ -8,8 +8,8 @@
 
 #define PERIOD		10		// Delay period between signal (seconds) -- initial period
 #define PERIOD_LOW  60		// If battery voltage is very low, use long period
-#define WARN_TIME   5*60	// Delay before warning starts sounding (seconds) every PERIOD seconds
-#define SOS_TIME	10*60	// Delay before warning stops and SOS starts sounding (seconds) every PERIOD seconds
+//#define WARN_TIME   5*60	// Delay before warning starts sounding (seconds) every PERIOD seconds
+//#define SOS_TIME	10*60	// Delay before warning stops and SOS starts sounding (seconds) every PERIOD seconds
 
 #endif
 

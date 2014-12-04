@@ -20,10 +20,16 @@
 #include <avr/interrupt.h>
 #include <avr/sleep.h>
 #include <util/delay.h> 
+#include <avr/eeprom.h>
 #include "battery.h"
 #include "buzzer.h"
 #include "morse.h"
 
+EEMEM uint16_t cfg_warn =  5*60; // Delay before warning starts sounding (seconds) every PERIOD seconds
+EEMEM uint16_t cfg_sos  = 10*60; // Delay before warning stops and SOS starts sounding (seconds) every PERIOD seconds
+
+uint16_t warn_time;
+uint16_t sos_time;
 long seconds = 1;				// 2^32 = 4294967296 seconds = 7 weeks, way more than enough; int isn't enough
 long pause = PERIOD;
 
@@ -35,6 +41,9 @@ int main(int argc, char **argv)
 {
 	cli();
 	disableWatchdog();
+
+	warn_time = eeprom_read_word(&cfg_warn);
+	sos_time = eeprom_read_word(&cfg_sos);
 
 	slowClock();
 
@@ -82,12 +91,12 @@ ISR(WDT_vect)
 
 	// Beep "W" if WARN time exceeded
 	// Beep "SOS" if SOS time exceeded
-	if (seconds >= SOS_TIME) {
+	if (seconds >= sos_time) {
 		if (++pause >= PERIOD) {
 			sos();
 			pause = 0;
 		}
-	} else if (seconds >= WARN_TIME) {
+	} else if (seconds >= warn_time) {
 		if (++pause >= PERIOD) {
 			w();
 			pause = 0;
