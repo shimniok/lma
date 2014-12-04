@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="6.4">
+<eagle version="7.1.0">
 <drawing>
 <settings>
 <setting alwaysvectorfont="yes"/>
@@ -14,14 +14,14 @@
 <layer number="18" name="Vias" color="2" fill="1" visible="yes" active="yes"/>
 <layer number="19" name="Unrouted" color="6" fill="1" visible="yes" active="yes"/>
 <layer number="20" name="Dimension" color="15" fill="1" visible="yes" active="yes"/>
-<layer number="21" name="tPlace" color="7" fill="1" visible="no" active="yes"/>
-<layer number="22" name="bPlace" color="7" fill="1" visible="no" active="yes"/>
-<layer number="23" name="tOrigins" color="15" fill="1" visible="no" active="yes"/>
-<layer number="24" name="bOrigins" color="15" fill="1" visible="no" active="yes"/>
-<layer number="25" name="tNames" color="7" fill="1" visible="no" active="yes"/>
-<layer number="26" name="bNames" color="7" fill="1" visible="no" active="yes"/>
-<layer number="27" name="tValues" color="7" fill="1" visible="no" active="yes"/>
-<layer number="28" name="bValues" color="7" fill="1" visible="no" active="yes"/>
+<layer number="21" name="tPlace" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="22" name="bPlace" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="23" name="tOrigins" color="15" fill="1" visible="yes" active="yes"/>
+<layer number="24" name="bOrigins" color="15" fill="1" visible="yes" active="yes"/>
+<layer number="25" name="tNames" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="26" name="bNames" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="27" name="tValues" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="28" name="bValues" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="29" name="tStop" color="7" fill="3" visible="yes" active="yes"/>
 <layer number="30" name="bStop" color="7" fill="6" visible="yes" active="yes"/>
 <layer number="31" name="tCream" color="7" fill="4" visible="no" active="yes"/>
@@ -153,7 +153,7 @@
 <text x="14.142009375" y="7.836003125" size="0.8128" layer="121" font="vector" ratio="25" rot="R90">104</text>
 <text x="7.744003125" y="6.223" size="0.8128" layer="121" font="vector" ratio="25" rot="R90">TINY13</text>
 <text x="5.461" y="3.302" size="0.8128" layer="121" font="vector" ratio="25" rot="R90">10K</text>
-<text x="5.334" y="12.065" size="0.8128" layer="121" font="vector" ratio="25" rot="R90">1M</text>
+<text x="5.334" y="11.43" size="0.8128" layer="121" font="vector" ratio="25" rot="R90">220K</text>
 <text x="5.334" y="8.001" size="0.8128" layer="121" font="vector" ratio="25" rot="R90">100K</text>
 <text x="12.192" y="15.113" size="1.016" layer="122" font="vector" ratio="20" rot="MR0">CR1225</text>
 </plain>
@@ -401,6 +401,9 @@ Please make sure your boards conform to these design rules.</description>
 <autorouter>
 <pass name="Default">
 <param name="RoutingGrid" value="50mil"/>
+<param name="AutoGrid" value="1"/>
+<param name="Efforts" value="0"/>
+<param name="TopRouterVariant" value="1"/>
 <param name="tpViaShape" value="round"/>
 <param name="PrefDir.1" value="|"/>
 <param name="PrefDir.2" value="0"/>
@@ -517,11 +520,11 @@ Please make sure your boards conform to these design rules.</description>
 <element name="PAD2" library="wirepad" package="1,6/0,8" value="SWITCH" x="4.445" y="1.778" smashed="yes" rot="R270">
 <attribute name="BOM" value="EXCLUDE" x="4.445" y="1.778" size="1.778" layer="27" rot="R270" display="off"/>
 </element>
-<element name="R3" library="rcl" package="R0603" value="1M" x="6.223" y="12.7" smashed="yes" rot="R270">
+<element name="R3" library="rcl" package="R0603" value="220K" x="6.223" y="12.7" smashed="yes" rot="R270">
 <attribute name="PARTNO" value="ERJ-3GEYJ102V" x="6.223" y="12.7" size="1.778" layer="27" rot="R270" display="off"/>
-<attribute name="VALUE" x="5.334" y="12.065" size="0.8128" layer="27" rot="R90"/>
+<attribute name="VALUE" x="5.334" y="11.43" size="0.8128" layer="27" rot="R90"/>
 </element>
-<element name="R4" library="rcl" package="R0603" value="100K" x="6.223" y="9.398" smashed="yes" rot="R270">
+<element name="R4" library="rcl" package="R0603" value="33K" x="6.223" y="9.398" smashed="yes" rot="R270">
 <attribute name="PARTNO" value="ERJ-3GEYJ102V" x="6.223" y="9.398" size="1.778" layer="27" rot="R270" display="off"/>
 <attribute name="VALUE" x="5.334" y="8.001" size="0.8128" layer="27" rot="R90"/>
 </element>

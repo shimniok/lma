@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="6.4">
+<eagle version="7.1.0">
 <drawing>
 <settings>
 <setting alwaysvectorfont="yes"/>
@@ -6358,10 +6358,10 @@ Spark Fun Electronics SKU : Comp-Buzzer</description>
 <part name="PAD2" library="wirepad" deviceset="WIREPAD" device="1,6/0,8" value="SWITCH">
 <attribute name="BOM" value="EXCLUDE"/>
 </part>
-<part name="R3" library="rcl" deviceset="R-US_" device="R0603" value="1M">
+<part name="R3" library="rcl" deviceset="R-US_" device="R0603" value="220K">
 <attribute name="PARTNO" value="ERJ-3GEYJ102V"/>
 </part>
-<part name="R4" library="rcl" deviceset="R-US_" device="R0603" value="100K">
+<part name="R4" library="rcl" deviceset="R-US_" device="R0603" value="33K">
 <attribute name="PARTNO" value="ERJ-3GEYJ102V"/>
 </part>
 <part name="BAT" library="SparkFun" deviceset="BATTERY" device="12PTH" value="CR1225">
@@ -6412,8 +6412,8 @@ Spark Fun Electronics SKU : Comp-Buzzer</description>
 <instance part="R4" gate="G$1" x="99.06" y="71.12" rot="R270">
 <attribute name="PARTNO" x="99.06" y="71.12" size="1.778" layer="96" display="off"/>
 </instance>
-<instance part="BAT" gate="G$1" x="182.88" y="93.98" rot="R90">
-<attribute name="BOM" x="182.88" y="93.98" size="2.54" layer="96" display="off"/>
+<instance part="BAT" gate="G$1" x="182.88" y="91.44" rot="R270">
+<attribute name="BOM" x="182.88" y="91.44" size="2.54" layer="96" rot="R180" display="off"/>
 </instance>
 <instance part="FRAME1" gate="G$1" x="0" y="0"/>
 <instance part="FRAME1" gate="G$2" x="147.32" y="2.54"/>
@@ -6483,7 +6483,7 @@ Spark Fun Electronics SKU : Comp-Buzzer</description>
 <net name="GND" class="0">
 <segment>
 <wire x1="182.88" y1="58.42" x2="193.04" y2="58.42" width="0.1524" layer="91"/>
-<wire x1="182.88" y1="99.06" x2="182.88" y2="58.42" width="0.1524" layer="91"/>
+<wire x1="182.88" y1="86.36" x2="182.88" y2="58.42" width="0.1524" layer="91"/>
 <wire x1="170.18" y1="58.42" x2="182.88" y2="58.42" width="0.1524" layer="91"/>
 <wire x1="170.18" y1="88.9" x2="170.18" y2="58.42" width="0.1524" layer="91"/>
 <wire x1="139.7" y1="58.42" x2="170.18" y2="58.42" width="0.1524" layer="91"/>
@@ -6570,7 +6570,7 @@ Spark Fun Electronics SKU : Comp-Buzzer</description>
 <net name="N$2" class="0">
 <segment>
 <wire x1="187.96" y1="106.68" x2="182.88" y2="106.68" width="0.1524" layer="91"/>
-<wire x1="182.88" y1="88.9" x2="182.88" y2="106.68" width="0.1524" layer="91"/>
+<wire x1="182.88" y1="96.52" x2="182.88" y2="106.68" width="0.1524" layer="91"/>
 <pinref part="PAD2" gate="G$1" pin="P"/>
 <pinref part="BAT" gate="G$1" pin="+"/>
 </segment>
