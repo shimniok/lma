@@ -5905,7 +5905,7 @@ Various common sizes : AA, AAA, 20mm coin cell and 12mm coin cell.</description>
 <smd name="1" x="-1.27" y="2.54" dx="1.27" dy="1.27" layer="1" roundness="100"/>
 <smd name="5" x="-1.27" y="-2.54" dx="1.27" dy="1.27" layer="1" roundness="100"/>
 <smd name="6" x="1.27" y="-2.54" dx="1.27" dy="1.27" layer="1" roundness="100"/>
-<text x="-3.175" y="1.905" size="1.27" layer="21" font="vector" ratio="10">1</text>
+<text x="-2.413" y="3.175" size="1.27" layer="21" font="vector" ratio="10" rot="R180">1</text>
 <circle x="-1.27" y="2.54" radius="0.898025" width="0.127" layer="21"/>
 <pad name="3" x="-1.27" y="0" drill="0.8"/>
 <pad name="4" x="1.27" y="0" drill="0.8"/>
