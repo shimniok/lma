@@ -1,11 +1,11 @@
 ###############################################################################
-# Makefile for the project UM_LMA
+# Makefile for the project lma
 ###############################################################################
 
 ## General Flags
-PROJECT = UM_LMA
+PROJECT = lma
 MCU = attiny13
-TARGET = UM_LMA.elf
+TARGET = lma.elf
 CC = avr-gcc
 
 CPP = avr-g++
@@ -15,7 +15,7 @@ COMMON = -mmcu=$(MCU)
 
 ## Compile options common for all C compilation units.
 CFLAGS = $(COMMON)
-CFLAGS += -Wall -gdwarf-2 -std=gnu99            -Os -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums
+CFLAGS += -Wall -gdwarf-2 -std=gnu99  -fno-inline-small-functions  -Os -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums
 CFLAGS += -MD -MP -MT $(*F).o -MF dep/$(@F).d 
 
 ## Assembly specific flags
@@ -25,7 +25,7 @@ ASMFLAGS += -x assembler-with-cpp -Wa,-gdwarf2
 
 ## Linker flags
 LDFLAGS = $(COMMON)
-LDFLAGS +=  -Wl,-Map=UM_LMA.map
+LDFLAGS +=  -Wl,-Map=lma.map
 
 
 ## Intel Hex file production flags
@@ -37,16 +37,25 @@ HEX_EEPROM_FLAGS += --change-section-lma .eeprom=0 --no-change-warnings
 
 
 ## Objects that must be built in order to link
-OBJECTS = UM_LMA.o 
+OBJECTS = lma.o battery.o morse.o buzzer.o 
 
 ## Objects explicitly added by the user
 LINKONLYOBJECTS = 
 
 ## Build
-all: $(TARGET) UM_LMA.hex UM_LMA.eep UM_LMA.lss size
+all: $(TARGET) lma.hex lma.eep lma.lss size
 
 ## Compile
-UM_LMA.o: ../UM_LMA.c
+lma.o: ../lma.c
+	$(CC) $(INCLUDES) $(CFLAGS) -c  $<
+
+battery.o: ../battery.c
+	$(CC) $(INCLUDES) $(CFLAGS) -c  $<
+
+morse.o: ../morse.c
+	$(CC) $(INCLUDES) $(CFLAGS) -c  $<
+
+buzzer.o: ../buzzer.c
 	$(CC) $(INCLUDES) $(CFLAGS) -c  $<
 
 ##Link
@@ -69,7 +78,7 @@ size: ${TARGET}
 ## Clean target
 .PHONY: clean
 clean:
-	-rm -rf $(OBJECTS) UM_LMA.elf dep/* UM_LMA.hex UM_LMA.eep UM_LMA.lss UM_LMA.map
+	-rm -rf $(OBJECTS) lma.elf dep/* lma.hex lma.eep lma.lss lma.map
 
 
 ## Other dependencies
