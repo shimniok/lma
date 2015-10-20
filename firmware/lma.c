@@ -28,13 +28,12 @@
 #include "switch.h"
 #include "morse.h"
 
-EEMEM uint16_t cfg_warn =  5*60; // Delay before warning starts sounding (seconds) every PERIOD seconds
-EEMEM uint16_t cfg_sos  = 10*60; // Delay before warning stops and SOS starts sounding (seconds) every PERIOD seconds
+EEMEM uint8_t cfg_warn_min = 5; // EEPROM: Delay before warning starts sounding, in minutes.
 
-uint8_t warn_time;
-uint8_t sos_time;
-uint16_t seconds = 1;				// 2^32 = 4294967296 seconds = 7 weeks, way more than enough; int isn't enough
-uint8_t pause = PERIOD;
+uint16_t warn_sec;				// Delay (in seconds) before Warning start sounding
+uint16_t sos_sec;				// Delay (in seconds) before SOS starts sounding
+uint16_t seconds = 1;		// 2^32 = 4294967296 seconds = 7 weeks, way more than enough; int isn't enough
+uint8_t pause = PERIOD;	// time to pause between SOS or Warning beeps
 
 //void disableWatchdog();
 //void enableWatchdog();
@@ -64,39 +63,50 @@ int main()
 	}
 #endif
 	
+ 	// Interrupt every second
 	wdt_enable(WDTO_8S);
+	wdt_reset();
+	sei();
 
- 	sei();
+	// Retrieve the current warning timeout from eeprom
+	uint8_t warn_min = eeprom_read_word(&cfg_warn_min);
 
-	//warn_time = eeprom_read_word(&cfg_warn);
-	warn_time = 5;
+	// If switch is depressed (at power up), begin increasing
+	// warning time, in 5-minute increments, max 30 minutes
+	// SOS time is 2 x warning time.
+	//
+	while (switchPressed()) {	
+		// Increment warning time by 5 minutes
+		warn_min += 5;
 
-	while (switchPressed()) {
-	
-		// Beep out the current warn time
-		uint8_t i = warn_time;
+		// Maximum warning time is 30 minutes
+		if (warn_min > 30) warn_min = 5;
+
+		// Save the new warning time
+		eeprom_write_word(&cfg_warn_min, warn_min);
+
+		// Beep out the current warning time
+		uint8_t i = warn_min;
 		while (i) {
-			if (i >= 10) {
+			if (i >= 10) {				// dah for each tens of minutes
 				dah();
 				i -= 10;
-			} else if (i != 0) {
+			} else if (i != 0) { // dit indicates 5 minutes
 				dit();
 				i = 0;
-			}				
-			wdt_reset();
+			}
 		}
 
-		warn_time += 5;
-		if (warn_time > 30) warn_time = 5;
-
-		eeprom_write_word(&cfg_warn, warn_time);
-
-		_delay_ms(3000);	
-
+		// pause between increments
+		_delay_ms(3000);
 		wdt_reset();
 	}
 
-	sos_time = warn_time * 2;
+	// Compute the number of seconds for warning and SOS
+	warn_sec = warn_min * 60;
+	sos_sec = warn_min * 2;
+
+	wdt_enable(WDTO_1S);
 
 	/*
 	if (checkVoltage()) {
@@ -124,17 +134,17 @@ ISR(WDT_vect)
 	// Beep "W" if WARN time exceeded
 	// Beep "SOS" if SOS time exceeded
 	if (++pause >= PERIOD) {
-		if (seconds >= sos_time) {
+		if (seconds >= sos_sec) {
 			sos();
 			pause = 0;
-		} else if (seconds >= warn_time) {
+		} else if (seconds >= warn_sec) {
 			w();
 			pause = 0;
 		}
 	}
 
 	// re-enable WDT interrupt
-	wdt_enable(WDTO_8S);
+	wdt_enable(WDTO_1S);
 
 	return;
 }
