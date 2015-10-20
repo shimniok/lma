@@ -4,7 +4,7 @@ PROJECT  = lma
 
 C_SRCS   = $(PROJECT).c 
 #OBJS    = $(PROJECT).o crt1.o
-OBJS     = $(PROJECT).o
+OBJS     = $(PROJECT).o battery.o buzzer.o morse.o switch.o
 LIBS     = 
 LIBDIRS  = 
 INCLUDES = 
@@ -13,7 +13,7 @@ FLASH_IMAGE  = $(PROJECT).hex
 EEPROM_IMAGE = $(PROJECT).eep
 SIZEDUMMY = sizedummy
 
-MCU      = attiny13
+MCU      = attiny85
 CFLAGS   = -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=$(MCU) -ffunction-sections
 LDFLAGS  = $(LIBDIRS) $(LIBS) -lm -Wl,-gc-sections
 
@@ -29,19 +29,18 @@ PROGRAMMER=dragon_isp
 #PROGRAMMER=jtag2isp
 AVRDUDE_FLAGS=-b1200
 
-LFUSE=0xfa
-HFUSE=0xdf
+#LFUSE=0xfa
+#HFUSE=0xdf
+LFUSE=0xe2
+HFUSE=0xd7
+EFUSE=0xff
 
 # Add inputs and outputs from these tool invocations to the build variables 
 
 RM := rm -rf
 
 # All Target
-all: doit
-#	@echo "Specify Warning/SOS delay:"
-#	@echo "	 make [W5S10|W10S20|W15S30]"
-
-doit: clean $(PROJECT).elf secondary-outputs
+all: clean $(PROJECT).elf secondary-outputs
 
 # WARN 5, SOS 10
 #W5S10: CFLAGS += 
@@ -88,7 +87,7 @@ clean:
 
 secondary-outputs: $(LSS) $(FLASH_IMAGE) $(EEPROM_IMAGE) $(SIZEDUMMY)
 
-install:
+install: $(PROJECT).hex
 	avrdude $(AVRDUDE_FLAGS) -p $(TARGET) -c $(PROGRAMMER) -P $(PORT) -v -U flash:w:$(PROJECT).hex
 
 fuses:
