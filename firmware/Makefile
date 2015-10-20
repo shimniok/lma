@@ -27,7 +27,7 @@ PROGRAMMER=dragon_isp
 #JTAG ICE MkII
 #PORT=usb
 #PROGRAMMER=jtag2isp
-AVRDUDE_FLAGS=-b1200
+AVRDUDE_FLAGS=-B20
 
 #LFUSE=0xfa
 #HFUSE=0xdf
@@ -40,7 +40,7 @@ EFUSE=0xff
 RM := rm -rf
 
 # All Target
-all: clean $(PROJECT).elf secondary-outputs
+all: clean $(PROJECT).elf
 
 # WARN 5, SOS 10
 #W5S10: CFLAGS += 
@@ -63,7 +63,7 @@ $(PROJECT).lss: $(PROJECT).elf
 	@echo 'Finished building: $@'
 	@echo ' '
 
-$(PROJECT).hex: $(PROJECT).elf
+$(PROJECT).hex: $(PROJECT).elf $(SIZEDUMMY)
 	@echo 'Create Flash image (ihex format)'
 	-avr-objcopy -R .eeprom -O ihex $(PROJECT).elf  "$(PROJECT).hex"
 	@echo 'Finished building: $@'
