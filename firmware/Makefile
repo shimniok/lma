@@ -40,11 +40,7 @@ EFUSE=0xff
 RM := rm -rf
 
 # All Target
-all: clean $(PROJECT).elf
-
-# WARN 5, SOS 10
-#W5S10: CFLAGS += 
-#W5S10: doit
+all: clean $(PROJECT).hex
 
 # This is included for AVR Studio 4 compatibility
 $(PROJECT): all
