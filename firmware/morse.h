@@ -10,6 +10,7 @@ void k();
 void o();
 void s();
 void w();
+void number(int n);
 void dit();
 void dah();
 void space();
