@@ -92,6 +92,9 @@ eeprom: $(PROJECT).eep
 fuses:
 	avrdude $(AVRDUDE_FLAGS) -p $(TARGET) -c $(PROGRAMMER) -P $(PORT) -v -U lfuse:w:$(LFUSE):m -U hfuse:w:$(HFUSE):m -U efuse:w:$(EFUSE):m
 
+calibrate:
+	avrdude $(AVRDUDE_FLAGS) -p $(TARGET) -c $(PROGRAMMER) -P $(PORT) -v -O
+
 %.o: %.c
 	@echo 'Building file: $<'
 	avr-gcc $(INCLUDES) $(CFLAGS) -c -o "$@" "$<"

@@ -35,12 +35,10 @@
  * Note that we want to preserve EEPROM so set Fuses EESAVE and BODLEVEL=1.8V
  */
 
-
 EEMEM uint16_t cfg_threshold = 0;	// create .eep with this loc initialized to 0.
 static uint16_t threshold;			// threshold
 static uint16_t volts;				// recently read voltage
 
-//
 void initADC() {
 	ADMUX = (1<<REFS0)|(1<<MUX1); // internal reference, PB4 (ADC2)
 
@@ -56,7 +54,7 @@ void initADC() {
 		// Divide result by 2 to get 2.5V
 		threshold = volts >> 1;
 		// Store the new threshold in eeprom
-		eeprom_write_word(&cfg_threshold, threshold);
+		eeprom_update_word(&cfg_threshold, threshold);
 	}
 }
 

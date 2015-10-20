@@ -28,6 +28,7 @@
 #include "switch.h"
 #include "morse.h"
 
+EEMEM uint8_t cfg_rccal = 0;		 // EEPROM: RC oscillator calibration
 EEMEM uint8_t cfg_warn_min = 5; // EEPROM: Delay before warning starts sounding, in minutes.
 
 uint16_t warn_sec;				// Delay (in seconds) before Warning start sounding
@@ -82,7 +83,7 @@ int main()
 		if (warn_min > 30) warn_min = 5;
 
 		// Save the new warning time
-		eeprom_write_word(&cfg_warn_min, warn_min);
+		eeprom_update_word(&cfg_warn_min, warn_min);
 
 		// Beep out the current warning time
 		uint8_t i = warn_min;
