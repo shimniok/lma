@@ -40,7 +40,7 @@ uint16_t pause = PERIOD;
 //void enableWatchdog();
 void slowClock();
 
-int main(int argc, char **argv)
+int main()
 {
 	cli();
 	wdt_disable();
@@ -51,9 +51,9 @@ int main(int argc, char **argv)
 	slowClock();
 
 	initBuzzer();
+	initSwitch();
 	/*
 	initADC();
-	initSwitch();
 	
 	if (checkVoltage()) {
 		ok();
@@ -76,14 +76,22 @@ int main(int argc, char **argv)
 #endif
 	*/
 	
-	wdt_enable(WDTO_1S);
+	wdt_enable(WDTO_8S);
 
  	sei();
 
-	int i;
-	for(i = 0; i < 10; i++) {
-		number(2);
-		_delay_ms(3000);
+	int i=0;
+	while (1) {
+		wdt_reset();
+		_delay_ms(2000);
+		if (switchPressed()) {
+			switchReset();
+			i++;
+			if (i > 9) i = 0;
+			number(i);
+		} else {
+			dit();
+		}
 	}
 
 	while (1) {
@@ -114,7 +122,7 @@ ISR(WDT_vect)
 	}
 
 	// re-enable WDT interrupt
-	wdt_enable(WDTO_1S);
+	wdt_enable(WDTO_8S);
 
 	return;
 }

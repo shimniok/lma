@@ -1,7 +1,7 @@
 #include "config.h"
 #include "switch.h"
 
-bool pressed=0;
+bool pressed = 0;
 
 void initSwitch(void) 
 {
@@ -11,21 +11,21 @@ void initSwitch(void)
   DDRB &= ~_BV(SWITCH);
   
   // Set pullup on switch
-  PORTB |= _BV(SWITCH);
+  //PORTB |= _BV(SWITCH);
 }
-
+/*
 bool switchPressed(void)
 {
-  return pressed;
+  return (PINB & _BV(SWITCH) == 0) ? 0 : 1;
 }
-
+*/
 void switchReset(void)
 {
   pressed = 0;
 }
 
-// ISR goes here
-void ISRthing()
+
+ISR(PCINT0_vect)
 {
   // debounce??
   pressed = 1;
