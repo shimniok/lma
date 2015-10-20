@@ -49,18 +49,10 @@ int main()
 //	sos_time = eeprom_read_word(&cfg_sos);
 
 	slowClock();
-
 	initBuzzer();
 	initSwitch();
-	/*
-	initADC();
+	//initADC();
 	
-	if (checkVoltage()) {
-		ok();
-	} else {
-		sos();
-	}
-
 #ifdef DEBUG
 	uint16_t v = getVoltage();
 	uint16_t i;
@@ -74,25 +66,53 @@ int main()
 		_delay_ms(1000);
 	}
 #endif
-	*/
 	
 	wdt_enable(WDTO_8S);
 
  	sei();
 
-	int i=0;
-	while (1) {
-		wdt_reset();
-		_delay_ms(2000);
-		if (switchPressed()) {
-			switchReset();
-			i++;
-			if (i > 9) i = 0;
-			number(i);
-		} else {
+	// warning time in tens and ones
+	uint8_t tens = 0;
+	uint8_t ones = 5;
+
+	while (switchPressed()) {
+	
+		// Beep out the current warn time
+		uint8_t i;
+		for (i = 0; i < tens; i++) {
+			dah();
+		}
+		if (ones != 0) {
 			dit();
 		}
+		wdt_reset();
+
+		// Increment by 5
+		if (ones == 0) {
+			ones = 5;
+			// If > 30, start over at 5
+			if (tens >= 3) {
+				ones = 5;
+				tens = 0;
+			}			
+		} else {
+			ones = 0;
+			tens++;
+		}		
+
+		_delay_ms(3000);
+		wdt_reset();
+
+
 	}
+
+	/*
+	if (checkVoltage()) {
+		ok();
+	} else {
+		sos();
+	}
+	*/
 
 	while (1) {
 		set_sleep_mode(SLEEP_MODE_PWR_DOWN);
