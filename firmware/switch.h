@@ -10,9 +10,7 @@
 
 typedef uint8_t bool;
 
-#define switchPressed() ((PINB & _BV(SWITCH)) == 0)
-
 void initSwitch(void);
-void switchReset(void);
+bool switchPressed(void);
 
 #endif
