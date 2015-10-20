@@ -31,10 +31,10 @@
 EEMEM uint16_t cfg_warn =  5*60; // Delay before warning starts sounding (seconds) every PERIOD seconds
 EEMEM uint16_t cfg_sos  = 10*60; // Delay before warning stops and SOS starts sounding (seconds) every PERIOD seconds
 
-uint16_t warn_time;
-uint16_t sos_time;
+uint8_t warn_time;
+uint8_t sos_time;
 uint16_t seconds = 1;				// 2^32 = 4294967296 seconds = 7 weeks, way more than enough; int isn't enough
-uint16_t pause = PERIOD;
+uint8_t pause = PERIOD;
 
 //void disableWatchdog();
 //void enableWatchdog();
@@ -44,9 +44,6 @@ int main()
 {
 	cli();
 	wdt_disable();
-
-//	warn_time = eeprom_read_word(&cfg_warn);
-//	sos_time = eeprom_read_word(&cfg_sos);
 
 	slowClock();
 	initBuzzer();
@@ -71,40 +68,35 @@ int main()
 
  	sei();
 
-	// warning time in tens and ones
-	uint8_t tens = 0;
-	uint8_t ones = 5;
+	//warn_time = eeprom_read_word(&cfg_warn);
+	warn_time = 5;
 
 	while (switchPressed()) {
 	
 		// Beep out the current warn time
-		uint8_t i;
-		for (i = 0; i < tens; i++) {
-			dah();
+		uint8_t i = warn_time;
+		while (i) {
+			if (i >= 10) {
+				dah();
+				i -= 10;
+			} else if (i != 0) {
+				dit();
+				i = 0;
+			}				
+			wdt_reset();
 		}
-		if (ones != 0) {
-			dit();
-		}
+
+		warn_time += 5;
+		if (warn_time > 30) warn_time = 5;
+
+		eeprom_write_word(&cfg_warn, warn_time);
+
+		_delay_ms(3000);	
+
 		wdt_reset();
-
-		// Increment by 5
-		if (ones == 0) {
-			ones = 5;
-			// If > 30, start over at 5
-			if (tens >= 3) {
-				ones = 5;
-				tens = 0;
-			}			
-		} else {
-			ones = 0;
-			tens++;
-		}		
-
-		_delay_ms(3000);
-		wdt_reset();
-
-
 	}
+
+	sos_time = warn_time * 2;
 
 	/*
 	if (checkVoltage()) {
