@@ -1,7 +1,7 @@
 #ifndef __MORSE_H
 #define __MORSE_H
 
-#define DOT 100						// length of dot in ms
+#define DOT 80						// length of dot in ms
 
 #define ok() o(); k();
 
