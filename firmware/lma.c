@@ -35,14 +35,15 @@ uint16_t sos_sec;				// Delay (in seconds) before SOS starts sounding
 uint16_t seconds = 1;		// 2^32 = 4294967296 seconds = 7 weeks, way more than enough; int isn't enough
 uint8_t pause = PERIOD;	// time to pause between SOS or Warning beeps
 
-//void disableWatchdog();
-//void enableWatchdog();
+void disableWatchdog();
+void enableWatchdog();
 void slowClock();
 
 int main()
 {
 	cli();
-	wdt_disable();
+	//wdt_disable();
+	disableWatchdog();
 
 	slowClock();
 	initBuzzer();
@@ -64,8 +65,7 @@ int main()
 #endif
 	
  	// Interrupt every second
-	wdt_enable(WDTO_8S);
-	wdt_reset();
+	//wdt_enable(WDTO_8S);
 	sei();
 
 	// Retrieve the current warning timeout from eeprom
@@ -95,6 +95,7 @@ int main()
 				dit();
 				i = 0;
 			}
+			wdt_reset();
 		}
 
 		// pause between increments
@@ -104,9 +105,13 @@ int main()
 
 	// Compute the number of seconds for warning and SOS
 	warn_sec = warn_min * 60;
-	sos_sec = warn_min * 2;
+	sos_sec = warn_sec * 2;
 
-	wdt_enable(WDTO_1S);
+	warn_sec = 5;
+	sos_sec = 20;
+
+	enableWatchdog();
+	//wdt_enable(WDTO_1S);
 
 	/*
 	if (checkVoltage()) {
@@ -127,7 +132,7 @@ ISR(WDT_vect)
 {
 	seconds++;	// increment 'clock'
 
-#ifdef DEBUG 
+#ifdef DEBUG
 	dit();
 #endif
 
@@ -144,27 +149,25 @@ ISR(WDT_vect)
 	}
 
 	// re-enable WDT interrupt
-	wdt_enable(WDTO_1S);
+	enableWatchdog();
+	//wdt_enable(WDTO_1S);
 
 	return;
 }
 
-/*
-void disableWatchdog()
+inline void disableWatchdog()
 {
-	_WDR();
 	// disable watchdog reset mode and interrupt mode
 	MCUSR = 0x00;
 	WDTCR |= _BV(WDE) | _BV(WDCE);
 	WDTCR = 0x00;
 }
 
-void enableWatchdog()
+inline void enableWatchdog()
 {
 	// Enable watchdog interrupt, set prescaling to 1 sec
 	WDTCR |= _BV(WDIE) | _BV(WDP2) | _BV(WDP1);
 }
-*/
 
 // 8MHz / 64 = 125000
 void slowClock()
