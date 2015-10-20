@@ -65,7 +65,6 @@ int main()
 #endif
 	
  	// Interrupt every second
-	//wdt_enable(WDTO_8S);
 	sei();
 
 	// Retrieve the current warning timeout from eeprom
@@ -107,11 +106,7 @@ int main()
 	warn_sec = warn_min * 60;
 	sos_sec = warn_sec * 2;
 
-	warn_sec = 5;
-	sos_sec = 20;
-
 	enableWatchdog();
-	//wdt_enable(WDTO_1S);
 
 	/*
 	if (checkVoltage()) {
