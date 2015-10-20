@@ -28,7 +28,7 @@ void w()
 	dit(); dah(); dah(); space();
 }
 
-void number(int n)
+void number(const uint8_t n)
 {
 	switch (n) {
 	case 0:

@@ -1,7 +1,7 @@
 #ifndef __MORSE_H
 #define __MORSE_H
 
-#define DOT	60						// length of dot in ms
+#define DOT 100						// length of dot in ms
 
 #define ok() o(); k();
 
@@ -10,7 +10,7 @@ void k();
 void o();
 void s();
 void w();
-void number(int n);
+void number(const uint8_t n);
 void dit();
 void dah();
 void space();
