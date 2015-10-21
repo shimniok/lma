@@ -15,24 +15,29 @@ Also, umlma beeps W in Morse code after a preset *Flight Timer* expires to remin
 ##Powering Up
   * Install a CR1225 battery if one isn't installed yet
   * Short the SWITCH pin headers with supplied shorting block
-  * After you power up, umlma checks the battery:
-    * SOS (... --- ...) means get a new CR1225 battery.
-    * OK (--- -.-) means you're good to go.
+  * After power up, umlma checks the battery voltage and beeps status (see below)
+
+| Beep | Text | Description |
+| --- | --- | --- |
+| --- -.- | OK | Battery voltage ok |
+| ...---... | SOS | Time to get a new CR1225 battery |
   
 ##How It Works
 Typical RC plane batteries support flight times from 5-15 minutes and running your LiPo battery down too low will ruin it.
 
-After the *Flight Timer* expires, umlma will start beeping W in Morse Code (.--) every 10 seconds to warn you it is time to land.
+After the *Flight Timer* expires, umlma will start beeping W in Morse Code (dit-dah-dah or .--) every 10 seconds to warn you it is time to land.
 
-If you lose your plane, the umlma will start to beep SOS in Morse Code (...---...) after the *SOS Timer* expires. The *SOS Timer* is automatically set to twice the value of the *Flight Timer*
+If you lose your plane, the umlma will start to beep SOS in Morse Code (dit-dit-dit dah-dah-dah dit-dit-dit or ...---...) after the *SOS Timer* expires. The *SOS Timer* is automatically set to twice the value of the *Flight Timer*
 
 ##Setting the Flight Timer
 It's easy to configure the *Flight Timer*. 
 
-* Hold down the pushbutton switch while powering on
-* The umlma will beep out the current Flight Timer (see below)
-* To increment the timer, keep holding the button.
-* Release the button when you've configured the desired *Flight Timer*.
+1. Hold down the pushbutton switch while powering on
+2. The umlma will beep out the current Flight Timer (see below)
+  * If the current *Flight Timer* is what you want, release the button
+  * Or, to increment the timer, keep holding the button
+3. umlma will increment the *Flight Timer* by 5 minutes
+4. go to 2.
 
 | Beep | Flight Timer | SOS Timer |
 | --- | ------------ | --------- |
@@ -42,6 +47,9 @@ It's easy to configure the *Flight Timer*.
 | -- | 20m | 40m |
 | --. | 25m | 50m |
 | --- | 30m | 60m |
+
+* dit = .
+* dah = -
 
 ##Recovery
 ###How Long Does It Beep?
