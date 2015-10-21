@@ -43,13 +43,12 @@ void slowClock();
 int main()
 {
 	cli();
-	//wdt_disable();
 	disableWatchdog();
 
 	slowClock();
 	initBuzzer();
 	initSwitch();
-	//initADC();
+	initADC();
 	
 #ifdef DEBUG
 	uint16_t v = getVoltage();
@@ -65,11 +64,8 @@ int main()
 	}
 #endif
 	
- 	// Interrupt every second
-	sei();
-
 	// Retrieve the current warning timeout from eeprom
-	uint8_t warn_min = eeprom_read_word(&cfg_warn_min);
+	uint8_t warn_min = eeprom_read_byte(&cfg_warn_min);
 
 	// If switch is depressed (at power up), begin increasing
 	// warning time, in 5-minute increments, max 30 minutes
@@ -83,7 +79,7 @@ int main()
 		if (warn_min > 30) warn_min = 5;
 
 		// Save the new warning time
-		eeprom_update_word(&cfg_warn_min, warn_min);
+		eeprom_update_byte(&cfg_warn_min, warn_min);
 
 		// Beep out the current warning time
 		uint8_t i = warn_min;
@@ -95,20 +91,18 @@ int main()
 				dit();
 				i = 0;
 			}
-			wdt_reset();
 		}
 
 		// pause between increments
 		_delay_ms(3000);
-		wdt_reset();
 	}
 
 	// Compute the number of seconds for warning and SOS
 	warn_sec = warn_min * 60;
 	sos_sec = warn_sec * 2;
 
-	enableWatchdog();
-
+	ok();
+	
 	/*
 	if (checkVoltage()) {
 		ok();
@@ -116,6 +110,9 @@ int main()
 		sos();
 	}
 	*/
+
+	enableWatchdog();
+ 	sei();
 
 	while (1) {
 		set_sleep_mode(SLEEP_MODE_PWR_DOWN);
@@ -146,7 +143,6 @@ ISR(WDT_vect)
 
 	// re-enable WDT interrupt
 	enableWatchdog();
-	//wdt_enable(WDTO_1S);
 
 	return;
 }
@@ -154,9 +150,8 @@ ISR(WDT_vect)
 inline void disableWatchdog()
 {
 	// disable watchdog reset mode and interrupt mode
-	MCUSR = 0x00;
 	WDTCR |= _BV(WDE) | _BV(WDCE);
-	WDTCR = 0x00;
+	WDTCR &= ~_BV(WDE);
 }
 
 inline void enableWatchdog()
