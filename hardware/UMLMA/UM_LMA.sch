@@ -49,6 +49,10 @@
 <layer number="53" name="tGND_GNDA" color="7" fill="9" visible="no" active="no"/>
 <layer number="54" name="bGND_GNDA" color="1" fill="9" visible="no" active="no"/>
 <layer number="56" name="wert" color="7" fill="1" visible="no" active="no"/>
+<layer number="57" name="tCAD" color="7" fill="1" visible="no" active="no"/>
+<layer number="59" name="tCarbon" color="7" fill="1" visible="no" active="no"/>
+<layer number="60" name="bCarbon" color="7" fill="1" visible="no" active="no"/>
+<layer number="90" name="Modules" color="5" fill="1" visible="no" active="no"/>
 <layer number="91" name="Nets" color="2" fill="1" visible="yes" active="yes"/>
 <layer number="92" name="Busses" color="1" fill="1" visible="yes" active="yes"/>
 <layer number="93" name="Pins" color="2" fill="1" visible="no" active="yes"/>
@@ -57,6 +61,7 @@
 <layer number="96" name="Values" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="97" name="Info" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="98" name="Guide" color="6" fill="1" visible="yes" active="yes"/>
+<layer number="99" name="SpiceOrder" color="7" fill="1" visible="no" active="no"/>
 <layer number="100" name="Muster" color="7" fill="1" visible="no" active="no"/>
 <layer number="101" name="Hidden" color="15" fill="1" visible="yes" active="yes"/>
 <layer number="102" name="Changes" color="12" fill="1" visible="yes" active="yes"/>
@@ -65,12 +70,31 @@
 <layer number="105" name="tPlate" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="106" name="bPlate" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="107" name="Crop" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="108" name="tplace-old" color="10" fill="1" visible="no" active="yes"/>
+<layer number="109" name="ref-old" color="11" fill="1" visible="no" active="yes"/>
+<layer number="110" name="fp0" color="7" fill="1" visible="no" active="yes"/>
+<layer number="111" name="LPC17xx" color="7" fill="1" visible="no" active="yes"/>
+<layer number="113" name="IDFDebug" color="4" fill="1" visible="no" active="yes"/>
 <layer number="116" name="Patch_BOT" color="9" fill="4" visible="yes" active="yes"/>
 <layer number="121" name="_tsilk" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="122" name="_bsilk" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="123" name="tTestmark" color="7" fill="1" visible="no" active="yes"/>
+<layer number="124" name="bTestmark" color="7" fill="1" visible="no" active="yes"/>
 <layer number="125" name="_tNames" color="7" fill="1" visible="no" active="yes"/>
+<layer number="126" name="_bNames" color="7" fill="1" visible="no" active="yes"/>
+<layer number="127" name="_tValues" color="7" fill="1" visible="no" active="yes"/>
+<layer number="128" name="_bValues" color="7" fill="1" visible="no" active="yes"/>
+<layer number="129" name="Mask" color="7" fill="1" visible="no" active="yes"/>
+<layer number="131" name="tAdjust" color="7" fill="1" visible="no" active="yes"/>
+<layer number="132" name="bAdjust" color="7" fill="1" visible="no" active="yes"/>
 <layer number="144" name="Drill_legend" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="150" name="Notes" color="7" fill="1" visible="no" active="yes"/>
 <layer number="151" name="HeatSink" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="152" name="_bDocu" color="7" fill="1" visible="no" active="yes"/>
+<layer number="153" name="FabDoc1" color="7" fill="1" visible="no" active="yes"/>
+<layer number="154" name="FabDoc2" color="7" fill="1" visible="no" active="yes"/>
+<layer number="155" name="FabDoc3" color="7" fill="1" visible="no" active="yes"/>
+<layer number="199" name="Contour" color="7" fill="1" visible="no" active="yes"/>
 <layer number="200" name="200bmp" color="1" fill="10" visible="yes" active="yes"/>
 <layer number="201" name="201bmp" color="2" fill="10" visible="yes" active="yes"/>
 <layer number="202" name="202bmp" color="3" fill="10" visible="yes" active="yes"/>
@@ -96,12 +120,21 @@
 <layer number="222" name="222bmp" color="23" fill="1" visible="no" active="no"/>
 <layer number="223" name="223bmp" color="24" fill="1" visible="no" active="no"/>
 <layer number="224" name="224bmp" color="25" fill="1" visible="no" active="no"/>
+<layer number="225" name="225bmp" color="7" fill="1" visible="no" active="yes"/>
+<layer number="226" name="226bmp" color="7" fill="1" visible="no" active="yes"/>
+<layer number="227" name="227bmp" color="7" fill="1" visible="no" active="yes"/>
+<layer number="228" name="228bmp" color="7" fill="1" visible="no" active="yes"/>
+<layer number="229" name="229bmp" color="7" fill="1" visible="no" active="yes"/>
+<layer number="230" name="230bmp" color="7" fill="1" visible="no" active="yes"/>
 <layer number="231" name="Eagle3D_PG1" color="14" fill="1" visible="yes" active="yes"/>
 <layer number="232" name="Eagle3D_PG2" color="14" fill="2" visible="yes" active="yes"/>
 <layer number="233" name="Eagle3D_PG3" color="14" fill="4" visible="yes" active="yes"/>
+<layer number="248" name="Housing" color="7" fill="1" visible="no" active="yes"/>
+<layer number="249" name="Edge" color="7" fill="1" visible="no" active="yes"/>
 <layer number="250" name="Descript" color="3" fill="1" visible="no" active="no"/>
 <layer number="251" name="SMDround" color="12" fill="11" visible="no" active="no"/>
 <layer number="254" name="cooling" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="255" name="routoute" color="7" fill="1" visible="no" active="yes"/>
 </layers>
 <schematic xreflabel="%F%N/%S.%C%R" xrefpart="/%S.%C%R">
 <libraries>
@@ -6402,8 +6435,8 @@ Spark Fun Electronics SKU : Comp-Buzzer</description>
 </package>
 <package name="3X4X2TACT">
 <description>&lt;b&gt;3mm x 4mm x 2mm Tactile Switch&lt;/b&gt;</description>
-<smd name="P$1" x="-2.1" y="0" dx="1.7" dy="0.9" layer="1" rot="R90"/>
-<smd name="P$2" x="2.1" y="0" dx="1.7" dy="0.9" layer="1" rot="R90"/>
+<smd name="P$1" x="-2.1" y="0" dx="2" dy="1.2" layer="1" rot="R90"/>
+<smd name="P$2" x="2.1" y="0" dx="2" dy="1.2" layer="1" rot="R90"/>
 <wire x1="-2" y1="1.5" x2="2" y2="1.5" width="0.127" layer="21"/>
 <wire x1="2" y1="1" x2="2" y2="-1" width="0.127" layer="51"/>
 <wire x1="2" y1="-1.5" x2="-2" y2="-1.5" width="0.127" layer="21"/>
@@ -6540,10 +6573,10 @@ Spark Fun Electronics SKU : Comp-Buzzer</description>
 <part name="PAD2" library="wirepad" deviceset="WIREPAD" device="1,6/0,8" value="SWITCH">
 <attribute name="BOM" value="EXCLUDE"/>
 </part>
-<part name="R3" library="rcl" deviceset="R-US_" device="R0603" value="220K">
+<part name="R2" library="rcl" deviceset="R-US_" device="R0603" value="220K">
 <attribute name="PARTNO" value="ERJ-3GEYJ102V"/>
 </part>
-<part name="R4" library="rcl" deviceset="R-US_" device="R0603" value="33K">
+<part name="R3" library="rcl" deviceset="R-US_" device="R0603" value="33K">
 <attribute name="PARTNO" value="ERJ-3GEYJ102V"/>
 </part>
 <part name="BAT" library="SparkFun" deviceset="BATTERY" device="12PTH" value="CR1225">
@@ -6553,9 +6586,6 @@ Spark Fun Electronics SKU : Comp-Buzzer</description>
 <part name="J1" library="bt_avr" deviceset="AVRISP6" device="_TP"/>
 <part name="SUPPLY2" library="supply2" deviceset="GND" device=""/>
 <part name="P+2" library="supply1" deviceset="VCC" device=""/>
-<part name="R2" library="rcl" deviceset="R-US_" device="R0603" value="10K">
-<attribute name="PARTNO" value="ERJ-3GEYJ102V"/>
-</part>
 <part name="S1" library="bt_electromech" deviceset="SPST" device="_3X4X2" value="CONF"/>
 <part name="IC1" library="bt_avr" deviceset="TINY25" device="-20SSU" value="TINY25"/>
 <part name="PAD3" library="wirepad" deviceset="WIREPAD" device="1,6/0,8" value="GND">
@@ -6569,7 +6599,7 @@ Spark Fun Electronics SKU : Comp-Buzzer</description>
 <sheet>
 <plain>
 <text x="160.02" y="25.4" size="2.54" layer="94">Ultra Micro Lost Model Alarm</text>
-<text x="231.14" y="25.4" size="2.54" layer="94">R0.3</text>
+<text x="231.14" y="25.4" size="2.54" layer="94">R0.4</text>
 </plain>
 <instances>
 <instance part="R1" gate="G$1" x="99.06" y="119.38" rot="R270">
@@ -6589,10 +6619,10 @@ Spark Fun Electronics SKU : Comp-Buzzer</description>
 <instance part="PAD2" gate="G$1" x="223.52" y="99.06" rot="R180">
 <attribute name="BOM" x="223.52" y="99.06" size="1.778" layer="96" display="off"/>
 </instance>
-<instance part="R3" gate="G$1" x="106.68" y="76.2" rot="R180">
+<instance part="R2" gate="G$1" x="106.68" y="76.2" rot="R180">
 <attribute name="PARTNO" x="106.68" y="76.2" size="1.778" layer="96" rot="R270" display="off"/>
 </instance>
-<instance part="R4" gate="G$1" x="99.06" y="66.04" rot="R270">
+<instance part="R3" gate="G$1" x="99.06" y="66.04" rot="R270">
 <attribute name="PARTNO" x="99.06" y="66.04" size="1.778" layer="96" display="off"/>
 </instance>
 <instance part="BAT" gate="G$1" x="215.9" y="86.36" rot="R270">
@@ -6603,9 +6633,6 @@ Spark Fun Electronics SKU : Comp-Buzzer</description>
 <instance part="J1" gate="A" x="27.94" y="66.04"/>
 <instance part="SUPPLY2" gate="GND" x="10.16" y="55.88"/>
 <instance part="P+2" gate="VCC" x="10.16" y="88.9"/>
-<instance part="R2" gate="G$1" x="83.82" y="111.76" rot="R270">
-<attribute name="PARTNO" x="83.82" y="111.76" size="1.778" layer="96" display="off"/>
-</instance>
 <instance part="S1" gate="G$1" x="83.82" y="76.2" rot="R90"/>
 <instance part="IC1" gate="1" x="154.94" y="99.06" rot="MR0"/>
 <instance part="PAD3" gate="G$1" x="223.52" y="58.42" rot="R180">
@@ -6643,8 +6670,7 @@ Spark Fun Electronics SKU : Comp-Buzzer</description>
 <wire x1="137.16" y1="132.08" x2="137.16" y2="127" width="0.1524" layer="91"/>
 <wire x1="137.16" y1="127" x2="99.06" y2="127" width="0.1524" layer="91"/>
 <wire x1="99.06" y1="124.46" x2="99.06" y2="127" width="0.1524" layer="91"/>
-<wire x1="55.88" y1="127" x2="83.82" y2="127" width="0.1524" layer="91"/>
-<wire x1="83.82" y1="127" x2="99.06" y2="127" width="0.1524" layer="91"/>
+<wire x1="55.88" y1="127" x2="99.06" y2="127" width="0.1524" layer="91"/>
 <junction x="203.2" y="127"/>
 <junction x="137.16" y="127"/>
 <junction x="99.06" y="127"/>
@@ -6652,9 +6678,6 @@ Spark Fun Electronics SKU : Comp-Buzzer</description>
 <pinref part="P+1" gate="VCC" pin="VCC"/>
 <pinref part="R1" gate="G$1" pin="1"/>
 <pinref part="PAD1" gate="G$1" pin="P"/>
-<pinref part="R2" gate="G$1" pin="1"/>
-<wire x1="83.82" y1="116.84" x2="83.82" y2="127" width="0.1524" layer="91"/>
-<junction x="83.82" y="127"/>
 <pinref part="IC1" gate="1" pin="VCC"/>
 <wire x1="190.5" y1="106.68" x2="198.12" y2="106.68" width="0.1524" layer="91"/>
 <wire x1="198.12" y1="106.68" x2="198.12" y2="127" width="0.1524" layer="91"/>
@@ -6694,7 +6717,7 @@ Spark Fun Electronics SKU : Comp-Buzzer</description>
 <pinref part="C1" gate="G$1" pin="2"/>
 <pinref part="SUPPLY1" gate="GND" pin="GND"/>
 <pinref part="SG1" gate="G$1" pin="2"/>
-<pinref part="R4" gate="G$1" pin="2"/>
+<pinref part="R3" gate="G$1" pin="2"/>
 <pinref part="BAT" gate="G$1" pin="-"/>
 <pinref part="S1" gate="G$1" pin="P"/>
 <wire x1="83.82" y1="71.12" x2="83.82" y2="58.42" width="0.1524" layer="91"/>
@@ -6745,9 +6768,6 @@ Spark Fun Electronics SKU : Comp-Buzzer</description>
 <pinref part="S1" gate="G$1" pin="S"/>
 <wire x1="83.82" y1="99.06" x2="119.38" y2="99.06" width="0.1524" layer="91"/>
 <wire x1="83.82" y1="81.28" x2="83.82" y2="99.06" width="0.1524" layer="91"/>
-<junction x="83.82" y="99.06"/>
-<pinref part="R2" gate="G$1" pin="2"/>
-<wire x1="83.82" y1="99.06" x2="83.82" y2="106.68" width="0.1524" layer="91"/>
 <pinref part="IC1" gate="1" pin="(SCK/USCK/SCL/ADC1/T0/INT0/PCINT2)PB2"/>
 </segment>
 <segment>
@@ -6771,8 +6791,8 @@ Spark Fun Electronics SKU : Comp-Buzzer</description>
 <wire x1="99.06" y1="104.14" x2="119.38" y2="104.14" width="0.1524" layer="91"/>
 <wire x1="99.06" y1="76.2" x2="101.6" y2="76.2" width="0.1524" layer="91"/>
 <junction x="99.06" y="76.2"/>
-<pinref part="R4" gate="G$1" pin="1"/>
-<pinref part="R3" gate="G$1" pin="2"/>
+<pinref part="R3" gate="G$1" pin="1"/>
+<pinref part="R2" gate="G$1" pin="2"/>
 <label x="101.6" y="104.14" size="1.778" layer="95"/>
 <pinref part="IC1" gate="1" pin="(PCINT3/XTAL1/CLKI/OC1B/ADC3)PB4"/>
 </segment>
@@ -6782,7 +6802,7 @@ Spark Fun Electronics SKU : Comp-Buzzer</description>
 <wire x1="111.76" y1="76.2" x2="114.3" y2="76.2" width="0.1524" layer="91"/>
 <wire x1="114.3" y1="76.2" x2="114.3" y2="101.6" width="0.1524" layer="91"/>
 <wire x1="114.3" y1="101.6" x2="119.38" y2="101.6" width="0.1524" layer="91"/>
-<pinref part="R3" gate="G$1" pin="1"/>
+<pinref part="R2" gate="G$1" pin="1"/>
 <pinref part="IC1" gate="1" pin="(PCINT4/XTAL2/CLKO/OC1B/ADC2)PB3"/>
 </segment>
 </net>
