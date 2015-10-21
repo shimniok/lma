@@ -50,7 +50,7 @@ int main()
 	initSwitch();
 	initADC();
 	
-#ifdef DEBUG
+//#ifdef DEBUG
 	uint16_t v = getVoltage();
 	uint16_t i;
 
@@ -62,7 +62,7 @@ int main()
 		}
 		_delay_ms(1000);
 	}
-#endif
+//#endif
 	
 	// Retrieve the current warning timeout from eeprom
 	uint8_t warn_min = eeprom_read_byte(&cfg_warn_min);
@@ -101,15 +101,11 @@ int main()
 	warn_sec = warn_min * 60;
 	sos_sec = warn_sec * 2;
 
-	ok();
-	
-	/*
 	if (checkVoltage()) {
 		ok();
 	} else {
 		sos();
 	}
-	*/
 
 	enableWatchdog();
  	sei();
