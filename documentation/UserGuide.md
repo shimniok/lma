@@ -21,21 +21,35 @@ Also, umlma beeps W in Morse code after a preset *Flight Timer* expires to remin
 | --- | --- | --- |
 | --- -.- | OK | Battery voltage ok |
 | ...---... | SOS | Time to get a new CR1225 battery |
-  
+
+* dit = .
+* dah = -
+
+###Voltage Calibration
+The umlma is calibrated for the low voltage threshold of ~2.5V after being assembled. The firmware performs auto-calibration on initial startup.
+
 ##How It Works
 Typical RC plane batteries support flight times from 5-15 minutes and running your LiPo battery down too low will ruin it.
 
-After the *Flight Timer* expires, umlma will start beeping W in Morse Code (dit-dah-dah or .--) every 10 seconds to warn you it is time to land.
+After the *Flight Timer* expires, umlma will start beeping W in Morse Code every 10 seconds to warn you it is time to land.
 
-If you lose your plane, the umlma will start to beep SOS in Morse Code (dit-dit-dit dah-dah-dah dit-dit-dit or ...---...) after the *SOS Timer* expires. The *SOS Timer* is automatically set to twice the value of the *Flight Timer*
+If you lose your plane, the umlma will start to beep SOS in Morse Code after the *SOS Timer* expires. The *SOS Timer* is automatically set to twice the value of the *Flight Timer*
+
+| Beep | Text | Description |
+| --- | --- | --- |
+| .-- | W | Flight time warning, time to land |
+| ...---... | SOS | Listen for this when looking for your lost plane |
+
+* dit = .
+* dah = -
 
 ##Setting the Flight Timer
 It's easy to configure the *Flight Timer*. 
 
 1. Hold down the pushbutton switch while powering on
-2. The umlma will beep out the current Flight Timer (see below)
+2. The umlma will beep out the current Flight Timer (as in the table below)
   * If the current *Flight Timer* is what you want, release the button
-  * Or, to increment the timer, keep holding the button
+  * Or, to increment the timer, keep holding the button another 3 seconds
 3. umlma will increment the *Flight Timer* by 5 minutes
 4. go to 2.
 
@@ -53,7 +67,7 @@ It's easy to configure the *Flight Timer*.
 
 ##Recovery
 ###How Long Does It Beep?
-The umlma is designed with the optimum tradeoffs between weight, size, and battery life. The umlma is designed to conserve as much battery power as possible to be devoted to recovery. A new battery should continue beeping for almost 2
+The umlma is designed with the optimum tradeoffs between weight, size, and battery life. The umlma is designed to conserve as much battery power as possible to be devoted to recovery. A new battery should continue beeping for approximately 20-30 hours, based on theoretical calculations. Temperature and battery age and construction will affect its longevity.
 
 ###How Loud Is It?
 Because of weight and size constraints, the umlma uses a CR1225 battery and 
@@ -61,42 +75,13 @@ small, efficient buzzer which delivers 80dBA @ 10cm.  As a result, there is a
 limit to how close you have to be to the umlma to hear it beeping.  Consider
 getting help from a younger person with better hearing. :)
   
-##Beeps
-The umlma issues one of several beeps in morse code as follows
-where . is dit (a short tone) and - is dah (a long tone):
+##Larger Battery
+Instead of the CR1225, you can connect a larger battery to the VCC (positive) and GND (ground) pins on the board. 
 
- * W    .--          Warning time elapsed; time to land and recharge?
- * SOS  ... --- ...  On power up: dying CR1225 battery. While flying: SOS time elapsed; is your aircraft lost? Listen for this.
- * OK   --- -.-      CR1225 battery voltage is ok
- 
-Time Periods
-------------
-You can order the umlma with the following time periods pre-programmed:
-  * Warn after 5 minutes; SOS after 10 minutes
-  * Warn after 10 minutes; SOS after 20 minutes
-  * Warn after 15 minutes; SOS after 30 minutes
+A dedicated battery is best. If you lose your plane after running the flight battery down, there will still be power to run the umlma.
 
-Changing the time period requires reprogramming the device. See below.
+##Remote Switch
+If you mount your UMLMA inside your plane, you can install an extension wire from the SWITCH pins to a remote switch outside the plane.
 
-Reconfiguring
--------------
-To reconfigure the timeout periods, you'll need to
-  * Grab the source code
-  * Install AVR Studio 4 (Windows only)
-  * Edit the config.h and change the time values
-  * Recompile
-  * Program MCU flash with an AVR programmer and pogo pin adapter with VCC connected to 5V
-  * Contact me at http://www.bot-thoughts.com for more help
-  
-Calibration
------------
-The umlma is calibrated for the low voltage threshold at the 'factory'.
-The firmware performs auto-calibration.
-  * Grab the source code
-  * Install AVR Studio 4 (Windows only)
-  * Recompile
-  * Remove the CR1225 battery
-  * Use an AVR programmer with pogo pin adapter and VCC connected to a 5.0V source
-  * Program the eeprom (using the lma.eep file)
-  * After it resets, VCC=5V; the umlma will compute 2.5V threshold and write it to eeprom.
-  * Contact me at http://www.bot-thoughts.com for more help
+## Questions or Problems?
+Contact me (Michael Shimniok) at http://www.bot-thoughts.com for more help
