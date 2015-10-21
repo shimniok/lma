@@ -20,17 +20,16 @@
  * done when the lma first starts up (in initADC()) after its eeprom is erased 
  * (set to 0). 
  * 
- * To calibrate, it reads the current voltage, which we expect to be 5.0V (within 1%
- * hopefully).  The adc value returned is 2x that of the 2.5V threshold.  So to get
- * the 2.5V ADC value, right shift the result, then store store it in the threshold
- * eeprom location.
+ * To calibrate, it reads the current voltage, which must be set to 5.0V (within 1%)
+ * The adc value returned is 2x that of the 2.5V threshold.  So to get the 2.5V ADC
+ * value, right shift the result, then store store it in the threshold eeprom location.
  * 
  * Next time initADC() is called, it'll read the threshold and use that.
  * 
  * Using
  * -----
  * To erase the calibration, just recompile, and program the eeprom with the .eep file
- * generated at compile time..
+ * generated at compile time.
  * 
  * Note that we want to preserve EEPROM so set Fuses EESAVE and BODLEVEL=1.8V
  */
@@ -40,7 +39,7 @@ static uint16_t threshold;			// threshold
 static uint16_t volts;				// recently read voltage
 
 void initADC() {
-	ADMUX = (1<<REFS0)|(1<<MUX1); // internal reference, PB4 (ADC2)
+	ADMUX = (1<<REFS1)|(1<<MUX1); // internal 1.1V reference, PB4 (ADC2)
 
 	// Read the threshold ADC value for low battery warning
 	threshold = eeprom_read_word(&cfg_threshold);
