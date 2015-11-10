@@ -67,7 +67,7 @@ It's easy to configure the *Flight Timer*.
 
 ##Recovery
 ###How Long Does It Beep?
-The umlma is designed with the optimum tradeoffs between weight, size, and battery life. The umlma is designed to conserve as much battery power as possible to be devoted to recovery. A new battery should continue beeping for approximately 20-30 hours, based on theoretical calculations. Temperature and battery age and construction will affect its longevity.
+The umlma is designed with the optimum tradeoffs between weight, size, and battery life. The umlma is designed to conserve as much battery power as possible to be devoted to recovery. A new battery should continue beeping for at least 10 hours, based on theoretical calculations. Temperature and battery age and construction will affect its longevity.
 
 ###How Loud Is It?
 Because of weight and size constraints, the umlma uses a CR1225 battery and 
