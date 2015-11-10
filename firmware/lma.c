@@ -66,35 +66,32 @@ int main()
 	
 	// Retrieve the current warning timeout from eeprom
 	uint8_t warn_min = eeprom_read_byte(&cfg_warn_min);
+	if (switchPressed()) {
+		number(warn_min);
+		// pause between increments
+		_delay_ms(3000);
+	}
 
 	// If switch is depressed (at power up), begin increasing
 	// warning time, in 5-minute increments, max 30 minutes
 	// SOS time is 2 x warning time.
 	//
 	while (switchPressed()) {	
-		// Increment warning time by 5 minutes
-		warn_min += 5;
+	
+		if (switchPressed()) {
+			// Increment warning time by 5 minutes
+			warn_min += 5;
 
-		// Maximum warning time is 30 minutes
-		if (warn_min > 30) warn_min = 5;
+			// Maximum warning time is 30 minutes
+			if (warn_min > 30) warn_min = 5;
 
-		// Save the new warning time
-		eeprom_update_byte(&cfg_warn_min, warn_min);
-
-		// Beep out the current warning time
-		uint8_t i = warn_min;
-		while (i) {
-			if (i >= 10) {				// dah for each tens of minutes
-				dah();
-				i -= 10;
-			} else if (i != 0) { // dit indicates 5 minutes
-				dit();
-				i = 0;
-			}
+			// Save the new warning time
+			eeprom_update_byte(&cfg_warn_min, warn_min);
 		}
+		number(warn_min);
 
 		// pause between increments
-		_delay_ms(3000);
+		_delay_ms(3000);		
 	}
 
 	// Compute the number of seconds for warning and SOS
