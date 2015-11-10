@@ -10,6 +10,7 @@ void k();
 void o();
 void s();
 void w();
+void number(uint8_t n);
 void dit();
 void dah();
 void space();
