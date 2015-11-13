@@ -4,6 +4,8 @@ Lost your aircraft? Don't panic; wait for the beeps! After the *SOS Timer* expir
 
 Also, umlma beeps W in Morse code after a preset *Flight Timer* expires to remind you to land and recharge your aircraft battery.
 
+Want one? [Buy now on Tindie](https://www.tindie.com/products/bot_thoughts/lost-model-alarm/)
+
 ##Features
   * Beeps W to warn you to land and recharge
   * Beeps SOS to help you find your lost plane
