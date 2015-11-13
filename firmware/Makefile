@@ -2,12 +2,12 @@
 
 PROJECT  = lma
 
-C_SRCS   = $(PROJECT).c 
+C_SRCS   = $(PROJECT).c
 #OBJS    = $(PROJECT).o crt1.o
 OBJS     = $(PROJECT).o battery.o buzzer.o morse.o switch.o
-LIBS     = 
-LIBDIRS  = 
-INCLUDES = 
+LIBS     =
+LIBDIRS  =
+INCLUDES =
 LSS          = $(PROJECT).lss
 FLASH_IMAGE  = $(PROJECT).hex
 EEPROM_IMAGE = $(PROJECT).eep
@@ -27,7 +27,7 @@ PROGRAMMER=dragon_isp
 #JTAG ICE MkII
 #PORT=usb
 #PROGRAMMER=jtag2isp
-AVRDUDE_FLAGS=-B20
+AVRDUDE_FLAGS=-B 50
 
 #LFUSE=0xfa
 #HFUSE=0xdf
@@ -35,7 +35,7 @@ LFUSE=0xe2
 HFUSE=0xd7
 EFUSE=0xff
 
-# Add inputs and outputs from these tool invocations to the build variables 
+# Add inputs and outputs from these tool invocations to the build variables
 
 RM := rm -rf
 
@@ -100,12 +100,12 @@ calibrate:
 	avr-gcc $(INCLUDES) $(CFLAGS) -c -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
-	
+
 ../A2D/libA2D.a:
 	-cd ../A2D && $(MAKE) all
 
 ../USI_I2C/libUSI_I2C.a: ../A2D/libA2D.a
 	-cd ../USI_I2C && $(MAKE) all
-		
+
 .PHONY: all clean dependents
 .SECONDARY:
