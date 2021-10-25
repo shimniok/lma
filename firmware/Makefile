@@ -33,12 +33,12 @@ LDFLAGS  = $(LIBDIRS) $(LIBS) -lm -Wl,-gc-sections
 PORT=usb
 PROGRAMMER=usbasp
 
-AVRDUDE_FLAGS=-F -B 150
+AVRDUDE_FLAGS=-F #-B 150
 
-# EESAVE, SPIEN, Internal 8MHz, Startup: PWRDN/RESET 6ck/14ck + 64ms
+# EESAVE, SPIEN, Internal 8MHz, CKDIV8, Startup: PWRDN/RESET 6ck/14ck + 64ms
 LFUSE=0x62
-HFUSE=0xd7
-EFUSE=0xff
+HFUSE=0xD7
+EFUSE=0xFF
 
 # Add inputs and outputs from these tool invocations to the build variables
 
@@ -88,7 +88,7 @@ clean:
 
 secondary-outputs: $(LSS) $(FLASH_IMAGE) $(EEPROM_IMAGE) $(SIZEDUMMY)
 
-install: $(PROJECT).hex eeprom
+install: $(PROJECT).hex eeprom fuses
 	avrdude $(AVRDUDE_FLAGS) -p $(TARGET) -c $(PROGRAMMER) -P $(PORT) -v -U flash:w:$(PROJECT).hex
 
 eeprom: $(PROJECT).eep
