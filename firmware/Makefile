@@ -13,11 +13,15 @@ FLASH_IMAGE  = $(PROJECT).hex
 EEPROM_IMAGE = $(PROJECT).eep
 SIZEDUMMY = sizedummy
 
-#MCU      = attiny85
 MCU      = attiny25
 TARGET   = $(MCU)
+F_CPU    = 8000000UL
+# EESAVE, SPIEN, Internal 8MHz, Startup: PWRDN/RESET 6ck/14ck + 64ms
+LFUSE    = 0xE2
+HFUSE    = 0xD7
+EFUSE    = 0xFF
 
-CFLAGS   = -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=$(MCU) -ffunction-sections
+CFLAGS   = -DF_CPU=$(F_CPU) -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=$(MCU) -ffunction-sections
 LDFLAGS  = $(LIBDIRS) $(LIBS) -lm -Wl,-gc-sections
 
 ##AVR Dragon
@@ -35,10 +39,6 @@ PROGRAMMER=usbasp
 
 AVRDUDE_FLAGS=-F #-B 150
 
-# EESAVE, SPIEN, Internal 8MHz, CKDIV8, Startup: PWRDN/RESET 6ck/14ck + 64ms
-LFUSE=0x62
-HFUSE=0xD7
-EFUSE=0xFF
 
 # Add inputs and outputs from these tool invocations to the build variables
 
