@@ -4,7 +4,7 @@ PROJECT  = lma
 
 C_SRCS   = $(PROJECT).c
 #OBJS    = $(PROJECT).o crt1.o
-OBJS     = $(PROJECT).o battery.o buzzer.o morse.o switch.o
+OBJS     = $(PROJECT).o battery.o buzzer.o clock.o morse.o switch.o watchdog.o
 LIBS     =
 LIBDIRS  =
 INCLUDES =

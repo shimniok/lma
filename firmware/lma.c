@@ -18,15 +18,16 @@
 
 #include "config.h"
 #include <avr/io.h>
-#include <avr/wdt.h>
 #include <avr/interrupt.h>
 #include <avr/sleep.h>
 #include <util/delay.h>
 #include <avr/eeprom.h>
 #include "battery.h"
 #include "buzzer.h"
-#include "switch.h"
+#include "clock.h"
 #include "morse.h"
+#include "switch.h"
+#include "watchdog.h"
 
 EEMEM uint8_t cfg_rccal = 0;		 // EEPROM: RC oscillator calibration
 EEMEM uint8_t cfg_warn_min = 5;  // EEPROM: Delay before warning starts sounding, in minutes.
@@ -35,10 +36,6 @@ uint16_t warn_sec;		  // Delay (in seconds) before Warning start sounding
 uint16_t sos_sec;				// Delay (in seconds) before SOS starts sounding
 uint16_t seconds = 1;		// 2^32 = 4294967296 seconds = 7 weeks, way more than enough; int isn't enough
 uint8_t pause = PERIOD;	// time to pause between SOS or Warning beeps
-
-void disableWatchdog();
-void enableWatchdog();
-void slowClock();
 
 int main()
 {
@@ -147,24 +144,4 @@ ISR(WDT_vect)
 	enableWatchdog();
 
 	return;
-}
-
-inline void disableWatchdog()
-{
-	// disable watchdog reset mode and interrupt mode
-	WDTCR |= _BV(WDE) | _BV(WDCE);
-	WDTCR &= ~_BV(WDE);
-}
-
-inline void enableWatchdog()
-{
-	// Enable watchdog interrupt, set prescaling to 1 sec
-	WDTCR |= _BV(WDIE) | _BV(WDP2) | _BV(WDP1);
-}
-
-// 8MHz / 64 = 125000
-void slowClock()
-{
-	CLKPR = _BV(CLKPCE); // enable change to clock prescaler
-	CLKPR = _BV(CLKPS2) | _BV(CLKPS1); // scale = /64
 }
