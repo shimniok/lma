@@ -10,17 +10,25 @@ inline void initBuzzer()
     TCNT0=0;
     OCR0A  = F_CPU/2/3800;
 
-    // Set LED and Buzzer as output
-    DDRB |= _BV(BUZZ);
+    // Set Buzzer pins as output
+    DDRB |= _BV(BUZZA)|_BV(BUZZB);
+#if DEBUG
+    DDRB |= _BV(LED);
+#endif
 }
-
 
 inline void beepOn()
 {
-    // Want to toggle OC0A on Compare Match: COM0A1=0 (TCCR0A:7), COM0A0=1 (TCCR0A:6) for non-PWM (CTC) mode
+    // Interrupt, no toggle gpio: COM0A1=0 (TCCR0A:7), COM0A0=0 (TCCR0A:6) for non-PWM (CTC) mode
     // CTC mode -- clear on timer compare: WGM02=0 WGM01=1 WGM00=0
-    TCCR0A = _BV(COM0A0) | _BV(WGM01); 
-    TCCR0B = _BV(CS00); // no clock prescaling
+    // TIMSK - OCIE0A (bit 4): Timer/Counter0 Output Compare Match A Interrupt Enable
+    TCCR0A = _BV(WGM01); // CTC mode
+    TCCR0B = _BV(CS00);  // no clock prescaling
+    TIMSK = _BV(OCIE0A); // Timer/Counter0 Output Compare Match A Interrupt Enable
+    //PORTB |= _BV(BUZZA); // turn on one pin (set up for toggling)
+#if DEBUG
+    PORTB |= _BV(LED);
+#endif
 }
 
 inline void beepOff()
@@ -28,4 +36,19 @@ inline void beepOff()
     // disable timer, clock
     TCCR0A = 0;
     TCCR0B = 0;
+    PORTB &= ~(_BV(BUZZA)|_BV(BUZZB)); // turn off pins
+    #if DEBUG
+      PORTB &= ~_BV(LED);
+    #endif
+}
+
+ISR(TIM1_COMPA_vect) {
+  static int toggle = 0;
+  if (toggle) {
+    PORTB &= _BV(BUZZA);
+    PORTB |= _BV(BUZZB);
+  } else {
+    PORTB &= _BV(BUZZB);
+    PORTB |= _BV(BUZZA);  
+  }
 }

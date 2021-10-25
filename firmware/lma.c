@@ -2,14 +2,14 @@
  * ATtiny25
  *
  * Sounds morse code "W" (warning) after a preset
- * delay, and after a further delay, "SOS" (mayday). 
+ * delay, and after a further delay, "SOS" (mayday).
  * The program utilizes sleep mode to conserve battery
- * power and disables peripherals between beeps.  The 
+ * power and disables peripherals between beeps.  The
  * program is originally designed for an ultra-light
  * LMA for ultra micro (UM) models like the Hobbyzone
  * Champ, inspired by losing mine to wind. (I got it
  * back but still...)
- * 
+ *
  * In addition, the firmware provides a low battery
  * warning. See adc.c for details.
  *
@@ -21,7 +21,7 @@
 #include <avr/wdt.h>
 #include <avr/interrupt.h>
 #include <avr/sleep.h>
-#include <util/delay.h> 
+#include <util/delay.h>
 #include <avr/eeprom.h>
 #include "battery.h"
 #include "buzzer.h"
@@ -29,9 +29,9 @@
 #include "morse.h"
 
 EEMEM uint8_t cfg_rccal = 0;		 // EEPROM: RC oscillator calibration
-EEMEM uint8_t cfg_warn_min = 5; // EEPROM: Delay before warning starts sounding, in minutes.
+EEMEM uint8_t cfg_warn_min = 5;  // EEPROM: Delay before warning starts sounding, in minutes.
 
-uint16_t warn_sec;				// Delay (in seconds) before Warning start sounding
+uint16_t warn_sec;		  // Delay (in seconds) before Warning start sounding
 uint16_t sos_sec;				// Delay (in seconds) before SOS starts sounding
 uint16_t seconds = 1;		// 2^32 = 4294967296 seconds = 7 weeks, way more than enough; int isn't enough
 uint8_t pause = PERIOD;	// time to pause between SOS or Warning beeps
@@ -45,11 +45,18 @@ int main()
 	cli();
 	disableWatchdog();
 
-	slowClock();
-	initBuzzer();
 	initSwitch();
+	initBuzzer();
 	initADC();
-	
+
+	/* enable programming, prevent slowClock(), press button */
+	while (switchPressed());
+
+	slowClock();
+	dit();
+	_delay_ms(2000);
+
+/*
 #ifdef DEBUG
 	uint16_t v = getVoltage();
 	uint16_t i;
@@ -63,9 +70,11 @@ int main()
 		_delay_ms(1000);
 	}
 #endif
-	
+*/
+
 	// Retrieve the current warning timeout from eeprom
 	uint8_t warn_min = eeprom_read_byte(&cfg_warn_min);
+
 	if (switchPressed()) {
 		number(warn_min);
 		// pause between increments
@@ -76,8 +85,8 @@ int main()
 	// warning time, in 5-minute increments, max 30 minutes
 	// SOS time is 2 x warning time.
 	//
-	while (switchPressed()) {	
-	
+	while (switchPressed()) {
+
 		if (switchPressed()) {
 			// Increment warning time by 5 minutes
 			warn_min += 5;
@@ -91,7 +100,7 @@ int main()
 		number(warn_min);
 
 		// pause between increments
-		_delay_ms(3000);		
+		_delay_ms(3000);
 	}
 
 	// Compute the number of seconds for warning and SOS

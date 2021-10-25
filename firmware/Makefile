@@ -13,25 +13,30 @@ FLASH_IMAGE  = $(PROJECT).hex
 EEPROM_IMAGE = $(PROJECT).eep
 SIZEDUMMY = sizedummy
 
+#MCU      = attiny85
 MCU      = attiny25
+TARGET   = $(MCU)
+
 CFLAGS   = -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=$(MCU) -ffunction-sections
 LDFLAGS  = $(LIBDIRS) $(LIBS) -lm -Wl,-gc-sections
 
-TARGET=$(MCU)
-#AVR Dragon
-PORT=usb
-PROGRAMMER=dragon_isp
-#Pololu programmer
+##AVR Dragon
+#PORT=usb
+#PROGRAMMER=dragon_isp
+##Pololu programmer
 #PORT=/dev/pololu_avrisp
 #PROGRAMMER=avrispv2
-#JTAG ICE MkII
+##JTAG ICE MkII
 #PORT=usb
 #PROGRAMMER=jtag2isp
-AVRDUDE_FLAGS=-B 50
+##USBASP
+PORT=usb
+PROGRAMMER=usbasp
 
-#LFUSE=0xfa
-#HFUSE=0xdf
-LFUSE=0xe2
+AVRDUDE_FLAGS=-F -B 150
+
+# EESAVE, SPIEN, Internal 8MHz, Startup: PWRDN/RESET 6ck/14ck + 64ms
+LFUSE=0x62
 HFUSE=0xd7
 EFUSE=0xff
 
@@ -83,7 +88,7 @@ clean:
 
 secondary-outputs: $(LSS) $(FLASH_IMAGE) $(EEPROM_IMAGE) $(SIZEDUMMY)
 
-install: $(PROJECT).hex
+install: $(PROJECT).hex eeprom
 	avrdude $(AVRDUDE_FLAGS) -p $(TARGET) -c $(PROGRAMMER) -P $(PORT) -v -U flash:w:$(PROJECT).hex
 
 eeprom: $(PROJECT).eep

@@ -13,6 +13,7 @@ void initSwitch(void)
   // Set pullup on switch
   PORTB |= _BV(SWITCH);
 }
+
 bool switchPressed(void)
 {
   bool result = 0;
