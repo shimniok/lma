@@ -32,11 +32,6 @@
 EEMEM uint8_t cfg_rccal = 0;		 // EEPROM: RC oscillator calibration
 EEMEM uint8_t cfg_warn_min = 5;  // EEPROM: Delay before warning starts sounding, in minutes.
 
-uint16_t warn_sec;		  // Delay (in seconds) before Warning start sounding
-uint16_t sos_sec;				// Delay (in seconds) before SOS starts sounding
-uint16_t seconds = 1;		// 2^32 = 4294967296 seconds = 7 weeks, way more than enough; int isn't enough
-uint8_t pause = PERIOD;	// time to pause between SOS or Warning beeps
-
 int main()
 {
 	cli();
@@ -101,8 +96,7 @@ int main()
 	}
 
 	// Compute the number of seconds for warning and SOS
-	warn_sec = warn_min * 60;
-	sos_sec = warn_sec * 2;
+	initWatchdog(warn_min * 60, warn_min * 60 * 2);
 
 	if (checkVoltage()) {
 		ok();
@@ -117,31 +111,4 @@ int main()
 		set_sleep_mode(SLEEP_MODE_PWR_DOWN);
 		sleep_mode();
 	}
-}
-
-
-ISR(WDT_vect)
-{
-	seconds++;	// increment 'clock'
-
-#ifdef DEBUG
-	dit();
-#endif
-
-	// Beep "W" if WARN time exceeded
-	// Beep "SOS" if SOS time exceeded
-	if (++pause >= PERIOD) {
-		if (seconds >= sos_sec) {
-			sos();
-			pause = 0;
-		} else if (seconds >= warn_sec) {
-			w();
-			pause = 0;
-		}
-	}
-
-	// re-enable WDT interrupt
-	enableWatchdog();
-
-	return;
 }

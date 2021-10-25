@@ -1,5 +1,6 @@
 #include "config.h"
 #include <avr/io.h>
+#include <avr/interrupt.h>
 #include "buzzer.h"
 
 inline void initBuzzer()
@@ -17,7 +18,7 @@ inline void initBuzzer()
 #endif
 }
 
-inline void beepOn()
+void beepOn()
 {
     // Interrupt, no toggle gpio: COM0A1=0 (TCCR0A:7), COM0A0=0 (TCCR0A:6) for non-PWM (CTC) mode
     // CTC mode -- clear on timer compare: WGM02=0 WGM01=1 WGM00=0
@@ -26,12 +27,12 @@ inline void beepOn()
     TCCR0B = _BV(CS00);  // no clock prescaling
     TIMSK = _BV(OCIE0A); // Timer/Counter0 Output Compare Match A Interrupt Enable
     //PORTB |= _BV(BUZZA); // turn on one pin (set up for toggling)
-#if DEBUG
-    PORTB |= _BV(LED);
-#endif
+    #if DEBUG
+      PORTB |= _BV(LED);
+    #endif
 }
 
-inline void beepOff()
+void beepOff()
 {
     // disable timer, clock
     TCCR0A = 0;
@@ -42,13 +43,13 @@ inline void beepOff()
     #endif
 }
 
-ISR(TIM1_COMPA_vect) {
+ISR(TIMER0_COMPA_vect) {
   static int toggle = 0;
   if (toggle) {
     PORTB &= _BV(BUZZA);
     PORTB |= _BV(BUZZB);
   } else {
     PORTB &= _BV(BUZZB);
-    PORTB |= _BV(BUZZA);  
+    PORTB |= _BV(BUZZA);
   }
 }
