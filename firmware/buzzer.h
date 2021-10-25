@@ -3,7 +3,6 @@
 
 #include "config.h"
 
-void initBuzzer();
 void beepOn();
 void beepOff();
 
