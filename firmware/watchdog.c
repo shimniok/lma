@@ -31,12 +31,9 @@ ISR(WDT_vect)
 {
 	seconds++;	// increment 'clock'
 
-#ifdef DEBUG
-	dit();
-#endif
-
 	// Beep "W" if WARN time exceeded
 	// Beep "SOS" if SOS time exceeded
+	/*
 	if (++pause >= PERIOD) {
 		if (seconds >= sos_sec) {
 			sos();
@@ -46,9 +43,10 @@ ISR(WDT_vect)
 			pause = 0;
 		}
 	}
+	*/
 
 	// re-enable WDT interrupt
-	enableWatchdog();
+	//enableWatchdog();
 
 	return;
 }
