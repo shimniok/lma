@@ -7,7 +7,7 @@
 #define SPACE     DOT    // intra character space
 #define WORDSPACE DOT*7  // intra word space
 
-#define OK "--. -.-"
+#define OK "--- -.-"
 #define SOS "... --- ..."
 #define S "..."
 #define W ".--"
