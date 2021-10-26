@@ -593,7 +593,7 @@ Please make sure your boards conform to these design rules.</description>
 <element name="PAD2" library="wirepad" package="1,6/0,8" value="SWITCH" x="4.445" y="1.778" smashed="yes" rot="R270">
 <attribute name="BOM" value="EXCLUDE" x="4.445" y="1.778" size="1.778" layer="27" rot="R270" display="off"/>
 </element>
-<element name="R3" library="rcl" package="R0603" value="33K" x="7.366" y="2.286" smashed="yes" rot="R90">
+<element name="R3" library="rcl" package="R0603" value="27K" x="7.366" y="2.286" smashed="yes" rot="R90">
 <attribute name="PARTNO" value="ERJ-3GEYJ102V" x="7.366" y="2.286" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="VALUE" x="6.604" y="1.27" size="0.8128" layer="27" rot="R90"/>
 </element>
@@ -614,7 +614,7 @@ Please make sure your boards conform to these design rules.</description>
 <attribute name="BOM" value="EXCLUDE" x="4.445" y="14.986" size="0.8128" layer="27" font="vector" ratio="20" display="off"/>
 <attribute name="VALUE" x="3.429" y="13.681" size="0.8128" layer="28" font="vector" rot="MR180"/>
 </element>
-<element name="R2" library="rcl" package="R0603" value="220K" x="9.525" y="2.286" smashed="yes" rot="R90">
+<element name="R2" library="rcl" package="R0603" value="100K" x="9.525" y="2.286" smashed="yes" rot="R90">
 <attribute name="PARTNO" value="ERJ-3GEYJ102V" x="9.525" y="2.286" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="VALUE" x="11.176" y="1.016" size="0.8128" layer="27" rot="R90"/>
 </element>

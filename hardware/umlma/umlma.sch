@@ -6573,7 +6573,7 @@ Spark Fun Electronics SKU : Comp-Buzzer</description>
 <part name="PAD2" library="wirepad" deviceset="WIREPAD" device="1,6/0,8" value="SWITCH">
 <attribute name="BOM" value="EXCLUDE"/>
 </part>
-<part name="R3" library="rcl" deviceset="R-US_" device="R0603" value="33K">
+<part name="R3" library="rcl" deviceset="R-US_" device="R0603" value="27K">
 <attribute name="PARTNO" value="ERJ-3GEYJ102V"/>
 </part>
 <part name="BAT" library="SparkFun" deviceset="BATTERY" device="12PTH" value="CR1225">
@@ -6591,7 +6591,7 @@ Spark Fun Electronics SKU : Comp-Buzzer</description>
 <part name="PAD4" library="wirepad" deviceset="WIREPAD" device="1,6/0,8" value="VCC">
 <attribute name="BOM" value="EXCLUDE"/>
 </part>
-<part name="R2" library="rcl" deviceset="R-US_" device="R0603" value="220K">
+<part name="R2" library="rcl" deviceset="R-US_" device="R0603" value="100K">
 <attribute name="PARTNO" value="ERJ-3GEYJ102V"/>
 </part>
 </parts>
