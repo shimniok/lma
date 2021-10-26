@@ -6,24 +6,21 @@
 
 void beepOn()
 {
-  // Need 3.8kHz tone
-  // set freq with output compare register
   TCNT0 = 0;
-  //OCR0A = F_CPU/F_PRESCALER/2/3800;
-  OCR0A = 150;
-  // Set Buzzer pins as output
-  DDRB |= _BV(BUZZA)|_BV(BUZZB);
-
   // Interrupt, no toggle gpio: COM0A1=0 (TCCR0A:7), COM0A0=0 (TCCR0A:6) for non-PWM (CTC) mode
   // CTC mode -- clear on timer compare: WGM02=0 WGM01=1 WGM00=0
   // TIMSK - OCIE0A (bit 4): Timer/Counter0 Output Compare Match A Interrupt Enable
   TCCR0A = _BV(WGM01); // CTC mode
-  TCCR0B = _BV(CS00);  // no clock prescaling
-  TIMSK |= _BV(OCIE0A); // Timer/Counter0 Output Compare Match A Interrupt Enable
-  //PORTB |= _BV(BUZZA); // turn on one pin (set up for toggling)
+  TCCR0B = TIM0_PRESCALE;
+  OCR0A = COMP_VALUE;
+  // Set Buzzer pins as output
+  DDRB |= _BV(BUZZA)|_BV(BUZZB);
+
   #if DEBUG
     PORTB |= _BV(LED);
   #endif
+
+  TIMSK |= _BV(OCIE0A); // Timer/Counter0 Output Compare Match A Interrupt Enable
 }
 
 void beepOff()
