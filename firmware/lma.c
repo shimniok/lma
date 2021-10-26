@@ -34,32 +34,15 @@ EEMEM uint8_t cfg_warn_min = 5;  // EEPROM: Delay before warning starts sounding
 int main()
 {
 	disableWatchdog();
-
 	initSwitch();
-//	initADC();
+	initADC();
+	sei();
 
 	/* enable programming, prevent slowClock(), press button */
 	while (switchPressed());
 
 	slowClock();
-	wait_ms(2000);
-	dit();
-
-/*
-#ifdef DEBUG
-	uint16_t v = getVoltage();
-	uint16_t i;
-
-	for (i = 0x8000; i != 0; i >>= 1) {
-		if (v & i) {
-			dit();
-		} else {
-			dah();
-		}
-		_delay_ms(1000);
-	}
-#endif
-*/
+	wait_ms(1000);
 
 	// Retrieve the current warning timeout from eeprom
 	uint8_t warn_min = eeprom_read_byte(&cfg_warn_min);
@@ -75,44 +58,52 @@ int main()
 	// SOS time is 2 x warning time.
 	//
 	while (switchPressed()) {
-
 		if (switchPressed()) {
 			// Increment warning time by 5 minutes
 			warn_min += 5;
-
 			// Maximum warning time is 30 minutes
 			if (warn_min > 30) warn_min = 5;
-
 			// Save the new warning time
 			eeprom_update_byte(&cfg_warn_min, warn_min);
 		}
 		number(warn_min);
-
 		// pause between increments
 		wait_ms(3000);
 	}
 
-	// Compute the number of seconds for warning and SOS
-	initWatchdog(warn_min * 60, warn_min * 60 * 2);
+	#ifdef DEBUG
+		uint16_t v = getVoltage();
+		uint16_t i;
+
+		for (i = 0x8000; i != 0; i >>= 1) {
+			if (v & i) {
+				dah();
+			} else {
+				dit();
+			}
+			wait_ms(1000);
+		}
+		wait_ms(2000);
+	#endif
 
 	/*
 	if (checkVoltage()) {
-		ok();
+		message(OK);
 	} else {
-		sos();
+		message(SOS);
 	}
 	*/
 
+	// Compute the number of seconds for warning and SOS
+	initWatchdog(warn_min * 60, warn_min * 60 * 2);
 	enableWatchdog();
-	sei();
 
 	int t = 1000;
-
 	while (1) {
 		set_sleep_mode(SLEEP_MODE_PWR_DOWN);
 		sleep_mode();
 		if (t++ > 5) {
-			message("--- -.-");
+			message(OK);
 			//message(SOS);
 			t = 0;
 		}
