@@ -35,6 +35,7 @@
  * Note that we want to preserve EEPROM so set Fuses EESAVE and BODLEVEL=1.8V
  */
 
+// TODO: fix cfg_threshold
 EEMEM uint16_t cfg_threshold = 0x62;	// create .eep with this loc initialized to 0.
 static uint16_t threshold = 0;	// threshold
 
@@ -79,7 +80,7 @@ void initADC() {
 
 void adc_on() {
 	// internal 1.1V reference, select ADC pin
-	ADMUX = (1<<REFS1)| 0b011;
+	ADMUX = (1<<REFS1)| 0b011; // TODO: convert to defines
 	// Take ADC out of shutdown and clear left adjust register
 	ADCSRA |= (1<<ADEN);
 	ADCSRA &= ~(1<<ADLAR);
