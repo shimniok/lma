@@ -17,10 +17,9 @@
  */
 
 #include "config.h"
-#include <avr/io.h>
 #include <avr/interrupt.h>
 #include <avr/sleep.h>
-#include <util/delay.h>
+#include <avr/io.h>
 #include <avr/eeprom.h>
 #include "battery.h"
 #include "buzzer.h"
@@ -34,19 +33,17 @@ EEMEM uint8_t cfg_warn_min = 5;  // EEPROM: Delay before warning starts sounding
 
 int main()
 {
-	cli();
 	disableWatchdog();
 
 	initSwitch();
-	initBuzzer();
-	initADC();
+//	initADC();
 
 	/* enable programming, prevent slowClock(), press button */
 	while (switchPressed());
 
 	slowClock();
+	wait_ms(2000);
 	dit();
-	_delay_ms(2000);
 
 /*
 #ifdef DEBUG
@@ -70,7 +67,7 @@ int main()
 	if (switchPressed()) {
 		number(warn_min);
 		// pause between increments
-		_delay_ms(3000);
+		wait_ms(3000);
 	}
 
 	// If switch is depressed (at power up), begin increasing
@@ -92,23 +89,33 @@ int main()
 		number(warn_min);
 
 		// pause between increments
-		_delay_ms(3000);
+		wait_ms(3000);
 	}
 
 	// Compute the number of seconds for warning and SOS
 	initWatchdog(warn_min * 60, warn_min * 60 * 2);
 
+	/*
 	if (checkVoltage()) {
 		ok();
 	} else {
 		sos();
 	}
+	*/
 
 	enableWatchdog();
- 	sei();
+	sei();
+
+	int t = 1000;
 
 	while (1) {
 		set_sleep_mode(SLEEP_MODE_PWR_DOWN);
 		sleep_mode();
+		if (t++ > 5) {
+			message("--- -.-");
+			//message(SOS);
+			t = 0;
+		}
+		enableWatchdog();
 	}
 }

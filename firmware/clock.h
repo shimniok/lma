@@ -15,6 +15,7 @@
 
 #define F_PRESCALER F_PRESCALER_1
 
+uint16_t get_cpu_prescale();
 void wait_ms(uint16_t ms);
 void slowClock();
 

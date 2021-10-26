@@ -21,6 +21,11 @@ void dah()
 	wait_ms(DOT); // intra-character space
 }
 
+inline void space()
+{
+	wait_ms(DOT*2);
+}
+
 void message(char *m) {
 	char *s;
 	for (s = m; *s != 0; s++) {

@@ -1,33 +1,16 @@
+#include "config.h"
 #include <avr/interrupt.h>
 #include <util/delay.h>
 #include "clock.h"
 
 volatile uint16_t millis = 0;
 
-uint8_t get_cpu_prescaler()
+uint16_t cpu_prescale[9] = { 1, 2, 4, 8, 16, 32, 64 };
+
+
+uint16_t get_cpu_prescale()
 {
-	switch (F_PRESCALER) {
-		case F_PRESCALER_1:
-			return 1;
-		case F_PRESCALER_2:
-			return 2;
-		case F_PRESCALER_4:
-		  return 4;
-		case F_PRESCALER_8:
-		  return 8;
-		case F_PRESCALER_16:
-			return 16;
-		case F_PRESCALER_32:
-		  return 32;
-		case F_PRESCALER_64:
-		  return 64;
-		case F_PRESCALER_128:
-		  return 128;
-		case F_PRESCALER_256:
-		  return 256;
-		default:
-			return 1;
-	}
+	return cpu_prescale[F_PRESCALER];
 }
 
 void slowClock()
@@ -38,6 +21,7 @@ void slowClock()
 
 void wait_ms(uint16_t ms)
 {
-  for (int i=0; i < ms; i++)
-    _delay_ms(1);
+	for (int j=0; j < F_CLKDIV; j++)
+	  for (int i=0; i < ms; i++)
+			_delay_ms(1);
 }

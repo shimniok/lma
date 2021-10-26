@@ -4,6 +4,20 @@
 #include <avr/interrupt.h>
 #include "buzzer.h"
 
+uint16_t tim0_prescale[8] = {
+  0,
+  [TIM0_PRESCALE_1]1,
+  [TIM0_PRESCALE_8]8,
+  [TIM0_PRESCALE_64]64,
+  [TIM0_PRESCALE_256]256UL,
+  [TIM0_PRESCALE_1024]1024UL
+};
+
+uint16_t get_tim0_prescale()
+{
+  return tim0_prescale[TIM0_PRESCALE];
+}
+
 void beepOn()
 {
   TCNT0 = 0;
@@ -12,7 +26,7 @@ void beepOn()
   // TIMSK - OCIE0A (bit 4): Timer/Counter0 Output Compare Match A Interrupt Enable
   TCCR0A = _BV(WGM01); // CTC mode
   TCCR0B = TIM0_PRESCALE;
-  OCR0A = COMP_VALUE;
+  OCR0A = (F_CLKDIV*F_CPU/BUZZER_FREQ)/2/get_cpu_prescale()/get_tim0_prescale();
   // Set Buzzer pins as output
   DDRB |= _BV(BUZZA)|_BV(BUZZB);
 

@@ -15,13 +15,24 @@ SIZEDUMMY = sizedummy
 
 MCU      = attiny25
 TARGET   = $(MCU)
-F_CPU    = 8000000UL
-# EESAVE, SPIEN, Internal 8MHz, Startup: PWRDN/RESET 6ck/14ck + 64ms
-LFUSE    = 0xE2
+
+## FUSES
+# Internal 8MHz
+# Startup: PWRDN/RESET 6ck/14ck + 64ms
+# CLKDIV8 0x62, No CLKDIV8 0xE2
+# No CKOUT
+LFUSE    = 0x62
+# EESAVE 0xD7, No EESAVE 0xDF
+# SPIEN, No WDTON, No BOD, No DWEN, No RSTDISBL
 HFUSE    = 0xD7
+# No SELFPRGEN
 EFUSE    = 0xFF
 
-CFLAGS   = -DF_CPU=$(F_CPU) -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=$(MCU) -ffunction-sections
+# Set these according to LFUSE above
+F_CPU    = 1000000UL
+F_CLKDIV = 8
+
+CFLAGS   = -DF_CPU=$(F_CPU) -DF_CLKDIV=$(F_CLKDIV) -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=$(MCU) -ffunction-sections
 LDFLAGS  = $(LIBDIRS) $(LIBS) -lm -Wl,-gc-sections
 
 ##AVR Dragon
@@ -48,7 +59,7 @@ RM := rm -rf
 all: clean $(PROJECT).hex
 
 # This is included for AVR Studio 4 compatibility
-$(PROJECT): all
+$(PROJECT): $(PROJECT).hex $(PROJECT).eep $(PROJECT).lss
 
 # Tool invocations
 $(PROJECT).elf: $(OBJS) $(LIBS)
@@ -88,17 +99,17 @@ clean:
 
 secondary-outputs: $(LSS) $(FLASH_IMAGE) $(EEPROM_IMAGE) $(SIZEDUMMY)
 
-install: $(PROJECT).hex eeprom fuses
-	avrdude $(AVRDUDE_FLAGS) -p $(TARGET) -c $(PROGRAMMER) -P $(PORT) -v -U flash:w:$(PROJECT).hex
+install: fuses $(PROJECT).hex eeprom
+	avrdude $(AVRDUDE_FLAGS) -p $(TARGET) -c $(PROGRAMMER) -P $(PORT) -U flash:w:$(PROJECT).hex
 
 eeprom: $(PROJECT).eep
-	avrdude $(AVRDUDE_FLAGS) -p $(TARGET) -c $(PROGRAMMER) -P $(PORT) -v -U eeprom:w:$(PROJECT).eep
+	avrdude $(AVRDUDE_FLAGS) -p $(TARGET) -c $(PROGRAMMER) -P $(PORT) -U eeprom:w:$(PROJECT).eep
 
-fuses:
-	avrdude $(AVRDUDE_FLAGS) -p $(TARGET) -c $(PROGRAMMER) -P $(PORT) -v -U lfuse:w:$(LFUSE):m -U hfuse:w:$(HFUSE):m -U efuse:w:$(EFUSE):m
+fuses: Makefile
+	avrdude $(AVRDUDE_FLAGS) -p $(TARGET) -c $(PROGRAMMER) -P $(PORT) -U lfuse:w:$(LFUSE):m -U hfuse:w:$(HFUSE):m -U efuse:w:$(EFUSE):m
 
 calibrate:
-	avrdude $(AVRDUDE_FLAGS) -p $(TARGET) -c $(PROGRAMMER) -P $(PORT) -v -O
+	avrdude $(AVRDUDE_FLAGS) -p $(TARGET) -c $(PROGRAMMER) -P $(PORT) -O
 
 %.o: %.c
 	@echo 'Building file: $<'

@@ -7,8 +7,6 @@
 #define SPACE     DOT    // intra character space
 #define WORDSPACE DOT*7  // intra word space
 
-#define space() _delay_ms(DOT*2)
-
 #define OK "--. -.-"
 #define SOS "... --- ..."
 #define S "..."
@@ -16,6 +14,7 @@
 
 void dit();
 void dah();
+void space();
 void message(char *m);
 void number(uint8_t n);
 
