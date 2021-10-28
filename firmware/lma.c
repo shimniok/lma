@@ -17,41 +17,37 @@
  */
 
 #include "config.h"
+#include "clock.h"
 #include <avr/interrupt.h>
 #include <avr/sleep.h>
 #include <avr/io.h>
 #include <avr/eeprom.h>
 #include "battery.h"
 #include "buzzer.h"
-#include "clock.h"
 #include "morse.h"
 #include "switch.h"
 #include "watchdog.h"
 
 EEMEM uint8_t cfg_rccal = 0;		 // EEPROM: RC oscillator calibration
 EEMEM uint8_t cfg_warn_min = 5;  // EEPROM: Delay before warning starts sounding, in minutes.
+uint16_t warn_sec;		           // Delay (in seconds) before Warning start sounding
+uint16_t sos_sec;				         // Delay (in seconds) before SOS starts sounding
+uint8_t pause = PERIOD;          // time to pause between SOS or Warning beeps
 
 int main()
 {
 	disableWatchdog();
-	initSwitch();
-	initADC();
 	sei();
 
-	/* enable programming, prevent slowClock(), press button */
-	while (switchPressed());
+	initSwitch();
 
+	wait_ms(2000);
 	slowClock();
-	wait_ms(1000);
+
+	init_battery_thresh();
 
 	// Retrieve the current warning timeout from eeprom
 	uint8_t warn_min = eeprom_read_byte(&cfg_warn_min);
-
-	if (switchPressed()) {
-		number(warn_min);
-		// pause between increments
-		wait_ms(3000);
-	}
 
 	// If switch is depressed (at power up), begin increasing
 	// warning time, in 5-minute increments, max 30 minutes
@@ -71,6 +67,7 @@ int main()
 		wait_ms(3000);
 	}
 
+	/*
 	#ifdef DEBUG
 		uint16_t v = getVoltage();
 		uint16_t i;
@@ -85,28 +82,58 @@ int main()
 		}
 		wait_ms(2000);
 	#endif
+	*/
 
-	/*
 	if (checkVoltage()) {
 		message(OK);
 	} else {
 		message(SOS);
 	}
-	*/
 
-	// Compute the number of seconds for warning and SOS
-	initWatchdog(warn_min * 60, warn_min * 60 * 2);
+	// set warn_sec, sos_sec
+	sos_sec = 10;
+	warn_sec = 5;
+
 	enableWatchdog();
 
-	int t = 1000;
+	uint16_t pause = 0;
+	uint16_t period = PERIOD;
+
 	while (1) {
 		set_sleep_mode(SLEEP_MODE_PWR_DOWN);
 		sleep_mode();
-		if (t++ > 5) {
-			message(OK);
-			//message(SOS);
-			t = 0;
+		if (++pause >= period) {
+			if (seconds >= sos_sec) {
+				message(SOS);
+				pause = 0;
+			} else if (seconds >= warn_sec) {
+				message(WARNING);
+				pause = 0;
+			}
+			/*
+			if (checkVoltage() == 0) {
+				period = PERIOD_LOW;
+			}
+			*/
 		}
 		enableWatchdog();
 	}
 }
+
+
+	// Beep "W" if WARN time exceeded
+	// Beep "SOS" if SOS time exceeded
+	/*
+	if (++pause >= PERIOD) {
+		if (seconds >= sos_sec) {
+			sos();
+			pause = 0;
+		} else if (seconds >= warn_sec) {
+			w();
+			pause = 0;
+		}
+	}
+	*/
+
+	// re-enable WDT interrupt
+	//enableWatchdog();

@@ -9,8 +9,7 @@
 
 #define OK "--- -.-"
 #define SOS "... --- ..."
-#define S "..."
-#define W ".--"
+#define WARNING ".--"
 
 void dit();
 void dah();

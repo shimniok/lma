@@ -11,8 +11,8 @@
  *
  * Circuit
  * -------
- * The lma is set up to feed a voltage divider with one pin (PB3), and read the divided
- * value with the other (PB4, ADC2). We have to use the internal voltage reference.
+ * The lma is set up to feed a voltage divider with one pin (PB0), and read the divided
+ * value with the other (PB3, ADC3). We have to use the internal voltage reference.
  * which varies from 1.0V to 1.2V. Also, the resistors in the divider are 5% tolerance.
  *
  * Calibration
@@ -35,9 +35,8 @@
  * Note that we want to preserve EEPROM so set Fuses EESAVE and BODLEVEL=1.8V
  */
 
-// TODO: fix cfg_threshold
-EEMEM uint16_t cfg_threshold = 0x62;	// create .eep with this loc initialized to 0.
-static uint16_t threshold = 0;	// threshold
+EEMEM uint16_t cfg_threshold = 0;	// create .eep with this loc initialized to 0.
+static uint16_t threshold = 0;      // threshold
 
 uint8_t pinToMux(uint8_t pin) {
 	uint8_t mux = 0;
@@ -58,23 +57,20 @@ uint8_t pinToMux(uint8_t pin) {
 	return mux;
 }
 
-void initADC() {
+void init_battery_thresh() {
 	// Read the threshold ADC value for low battery warning
 	threshold = eeprom_read_word(&cfg_threshold);
 
 	// Auto-calibrate battery warning threshold.
 	// Zero out threshold location in eeprom.
 	// Then, start MCU with Vcc=5.0V
-	/*
 	if (threshold == 0) {
 		// Get voltage (stored in volts)
-		checkVoltage();
 		// Divide result by 2 to get 2.5V
-		threshold = volts >> 1;
+		threshold = getVoltage() / 2;
 		// Store the new threshold in eeprom
 		eeprom_update_word(&cfg_threshold, threshold);
 	}
-	*/
 }
 
 
