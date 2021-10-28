@@ -99,7 +99,7 @@ clean:
 
 secondary-outputs: $(LSS) $(FLASH_IMAGE) $(EEPROM_IMAGE) $(SIZEDUMMY)
 
-install: fuses $(PROJECT).hex eeprom
+install: fuses $(PROJECT).hex
 	avrdude $(AVRDUDE_FLAGS) -p $(TARGET) -c $(PROGRAMMER) -P $(PORT) -U flash:w:$(PROJECT).hex
 
 eeprom: $(PROJECT).eep
