@@ -28,33 +28,23 @@
 #include "switch.h"
 #include "watchdog.h"
 
+#define after(x) (seconds >= (x))
+
 EEMEM uint8_t cfg_rccal = 0;		 // EEPROM: RC oscillator calibration
 EEMEM uint8_t cfg_warn_min = 5;  // EEPROM: Delay before warning starts sounding, in minutes.
-uint16_t warn_sec;		           // Delay (in seconds) before Warning start sounding
-uint16_t sos_sec;				         // Delay (in seconds) before SOS starts sounding
-uint8_t pause = PERIOD;          // time to pause between SOS or Warning beeps
+uint8_t warn_min = 0; // minutes before warning beeps begin
 
-int main()
-{
-	disableWatchdog();
-	sei();
 
-	initSwitch();
-
-	wait_ms(2000);
-	slowClock();
-
-	init_battery_thresh();
-
+void config() {
 	// Retrieve the current warning timeout from eeprom
-	uint8_t warn_min = eeprom_read_byte(&cfg_warn_min);
+	warn_min = eeprom_read_byte(&cfg_warn_min);
 
 	// If switch is depressed (at power up), begin increasing
 	// warning time, in 5-minute increments, max 30 minutes
 	// SOS time is 2 x warning time.
 	//
-	while (switchPressed()) {
-		if (switchPressed()) {
+	while (switch_pressed()) {
+		if (switch_pressed()) {
 			// Increment warning time by 5 minutes
 			warn_min += 5;
 			// Maximum warning time is 30 minutes
@@ -66,22 +56,26 @@ int main()
 		// pause between increments
 		wait_ms(3000);
 	}
+}
 
+
+void test_battery() {
 	/*
-	#ifdef DEBUG
-		uint16_t v = getVoltage();
-		uint16_t i;
+#ifdef DEBUG
+	// beep out voltage in binary, 1 == dah, 0 == dit
+	uint16_t v = getVoltage();
+	uint16_t i;
 
-		for (i = 0x8000; i != 0; i >>= 1) {
-			if (v & i) {
-				dah();
-			} else {
-				dit();
-			}
-			wait_ms(1000);
+	for (i = 0x8000; i != 0; i >>= 1) {
+		if (v & i) {
+			dah();
+		} else {
+			dit();
 		}
-		wait_ms(2000);
-	#endif
+		wait_ms(1000);
+	}
+	wait_ms(2000);
+#endif
 	*/
 
 	if (checkVoltage()) {
@@ -89,51 +83,66 @@ int main()
 	} else {
 		message(SOS);
 	}
+}
 
-	// set warn_sec, sos_sec
-	sos_sec = 10;
-	warn_sec = 5;
 
-	enableWatchdog();
-
-	uint16_t pause = 0;
-	uint16_t period = PERIOD;
+void loop() {
+	uint16_t next_warn_sec = 0;                // Keeps track of next time to warn/sos
+	uint16_t warn_period = WARN_PERIOD;        // Warn every WARN_PERIOD (changed to WARN_PERIOD_LOW when batt low)
+	//uint16_t next_batt_sec = BATT_PERIOD;      // keeps track of next time to check battery
+	uint16_t next_batt_sec = 30;
+	// uint16_t warn_begin_sec = warn_min*60;     // Delay (in seconds) before Warning start sounding
+	uint16_t warn_begin_sec = 10;
+	uint16_t sos_begin_sec = warn_begin_sec*2; // Delay (in seconds) before SOS starts sounding
+	char *msg = NULL;
 
 	while (1) {
+		enableWatchdog(); // (re-)enable watchdog
 		set_sleep_mode(SLEEP_MODE_PWR_DOWN);
 		sleep_mode();
-		if (++pause >= period) {
-			if (seconds >= sos_sec) {
-				message(SOS);
-				pause = 0;
-			} else if (seconds >= warn_sec) {
-				message(WARNING);
-				pause = 0;
+
+		// check battery voltage periodically
+		if (after(next_batt_sec)) {
+			message("-...");
+			if (!checkVoltage()) {
+				warn_period = WARN_PERIOD_LOW; // if batt low, increase warning period if battery low
+				// TODO: prevent further battery checks
 			}
-			/*
-			if (checkVoltage() == 0) {
-				period = PERIOD_LOW;
-			}
-			*/
+			next_batt_sec += BATT_PERIOD;  // check again in BATT_PERIOD seconds
 		}
-		enableWatchdog();
+
+		// Change msg after warning time or sos time exceeded
+		if (!msg) {
+			if (after(sos_begin_sec)) {
+				msg = SOS;
+			} else if (after(warn_begin_sec)) {
+				msg = WARNING;
+			}
+		} else {
+			// send message if warn_period exceeded
+			if (after(next_warn_sec)) {
+				next_warn_sec += warn_period;
+				message(msg);
+			}
+		}
+
 	}
 }
 
 
-	// Beep "W" if WARN time exceeded
-	// Beep "SOS" if SOS time exceeded
-	/*
-	if (++pause >= PERIOD) {
-		if (seconds >= sos_sec) {
-			sos();
-			pause = 0;
-		} else if (seconds >= warn_sec) {
-			w();
-			pause = 0;
-		}
-	}
-	*/
+int main() {
+	disableWatchdog();
+	sei();
 
-	// re-enable WDT interrupt
-	//enableWatchdog();
+	init_switch();
+
+	init_battery_thresh();
+
+//	wait_ms(2000); // just in case slower clock screws up programming...
+	slowClock();
+
+	config();
+	test_battery();
+
+	loop();
+}
