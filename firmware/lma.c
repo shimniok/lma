@@ -115,19 +115,15 @@ void loop() {
 		}
 		*/
 
-		if (!msg) {
-			// Change msg after warning time or sos time exceeded
-			if (after(sos_begin_sec)) {
-				msg = SOS;
-			} else if (after(warn_begin_sec)) {
-				msg = WARNING;
-				next_warn_sec = seconds; // reset next warning to now
-			}
+		if (after(sos_begin_sec)) {
+			msg = SOS;
+		} else if (after(warn_begin_sec)) {
+			msg = WARNING;
 		}
 
 		if (msg && after(next_warn_sec)) {
 			message(msg);
-			next_warn_sec += warn_period;
+			next_warn_sec = seconds + warn_period;
 		}
 
 	}
