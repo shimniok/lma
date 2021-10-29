@@ -10,6 +10,7 @@
 #define OK "--- -.-"
 #define SOS "... --- ..."
 #define WARNING ".--"
+#define CONFIG "-.-."
 
 void dit();
 void dah();
