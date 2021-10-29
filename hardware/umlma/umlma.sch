@@ -74,8 +74,12 @@
 <layer number="109" name="ref-old" color="11" fill="1" visible="no" active="yes"/>
 <layer number="110" name="fp0" color="7" fill="1" visible="no" active="yes"/>
 <layer number="111" name="LPC17xx" color="7" fill="1" visible="no" active="yes"/>
+<layer number="112" name="tSilk" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="113" name="IDFDebug" color="4" fill="1" visible="no" active="yes"/>
+<layer number="114" name="Badge_Outline" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="115" name="ReferenceISLANDS" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="116" name="Patch_BOT" color="9" fill="4" visible="yes" active="yes"/>
+<layer number="118" name="Rect_Pads" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="121" name="_tsilk" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="122" name="_bsilk" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="123" name="tTestmark" color="7" fill="1" visible="no" active="yes"/>
@@ -5976,25 +5980,6 @@ Various common sizes : AA, AAA, 20mm coin cell and 12mm coin cell.</description>
 <wire x1="-2.2" y1="-1.1" x2="-1.6" y2="-1.1" width="0.127" layer="21"/>
 <wire x1="-1.6" y1="-1.1" x2="-1.9" y2="-0.6" width="0.127" layer="21"/>
 </package>
-<package name="DIL08">
-<description>&lt;B&gt;Dual In Line&lt;/B&gt;</description>
-<wire x1="-5.08" y1="-0.635" x2="-5.08" y2="0.635" width="0.1524" layer="21" curve="180"/>
-<wire x1="-5.08" y1="-0.635" x2="-5.08" y2="-2.794" width="0.1524" layer="21"/>
-<wire x1="-5.08" y1="-2.794" x2="5.08" y2="-2.794" width="0.1524" layer="21"/>
-<wire x1="5.08" y1="-2.794" x2="5.08" y2="2.794" width="0.1524" layer="21"/>
-<wire x1="5.08" y1="2.794" x2="-5.08" y2="2.794" width="0.1524" layer="21"/>
-<wire x1="-5.08" y1="2.794" x2="-5.08" y2="0.635" width="0.1524" layer="21"/>
-<pad name="1" x="-3.81" y="-3.81" drill="0.8128" shape="long" rot="R90"/>
-<pad name="2" x="-1.27" y="-3.81" drill="0.8128" shape="long" rot="R90"/>
-<pad name="3" x="1.27" y="-3.81" drill="0.8128" shape="long" rot="R90"/>
-<pad name="4" x="3.81" y="-3.81" drill="0.8128" shape="long" rot="R90"/>
-<pad name="5" x="3.81" y="3.81" drill="0.8128" shape="long" rot="R90"/>
-<pad name="6" x="1.27" y="3.81" drill="0.8128" shape="long" rot="R90"/>
-<pad name="7" x="-1.27" y="3.81" drill="0.8128" shape="long" rot="R90"/>
-<pad name="8" x="-3.81" y="3.81" drill="0.8128" shape="long" rot="R90"/>
-<text x="-5.3594" y="-2.54" size="1.27" layer="25" ratio="10" rot="R90">&gt;NAME</text>
-<text x="-3.81" y="-0.9906" size="1.27" layer="27" ratio="10">&gt;VALUE</text>
-</package>
 <package name="20MLF_0.5">
 <smd name="1" x="0" y="3" dx="1" dy="0.25" layer="1"/>
 <smd name="2" x="0" y="2.5" dx="1" dy="0.25" layer="1"/>
@@ -6063,6 +6048,25 @@ Various common sizes : AA, AAA, 20mm coin cell and 12mm coin cell.</description>
 <text x="-3" y="-3.1" size="1.27" layer="25" rot="R90">&gt;NAME</text>
 <text x="4.3" y="-3.1" size="1.27" layer="27" rot="R90">&gt;VALUE</text>
 </package>
+<package name="DIL08">
+<description>&lt;B&gt;Dual In Line&lt;/B&gt;</description>
+<wire x1="-5.08" y1="-0.635" x2="-5.08" y2="0.635" width="0.1524" layer="21" curve="180"/>
+<wire x1="-5.08" y1="-0.635" x2="-5.08" y2="-2.794" width="0.1524" layer="21"/>
+<wire x1="-5.08" y1="-2.794" x2="5.08" y2="-2.794" width="0.1524" layer="21"/>
+<wire x1="5.08" y1="-2.794" x2="5.08" y2="2.794" width="0.1524" layer="21"/>
+<wire x1="5.08" y1="2.794" x2="-5.08" y2="2.794" width="0.1524" layer="21"/>
+<wire x1="-5.08" y1="2.794" x2="-5.08" y2="0.635" width="0.1524" layer="21"/>
+<pad name="1" x="-3.81" y="-3.81" drill="0.8128" shape="long" rot="R90"/>
+<pad name="2" x="-1.27" y="-3.81" drill="0.8128" shape="long" rot="R90"/>
+<pad name="3" x="1.27" y="-3.81" drill="0.8128" shape="long" rot="R90"/>
+<pad name="4" x="3.81" y="-3.81" drill="0.8128" shape="long" rot="R90"/>
+<pad name="5" x="3.81" y="3.81" drill="0.8128" shape="long" rot="R90"/>
+<pad name="6" x="1.27" y="3.81" drill="0.8128" shape="long" rot="R90"/>
+<pad name="7" x="-1.27" y="3.81" drill="0.8128" shape="long" rot="R90"/>
+<pad name="8" x="-3.81" y="3.81" drill="0.8128" shape="long" rot="R90"/>
+<text x="-5.3594" y="0" size="1.27" layer="25" font="vector" ratio="10" rot="R90" align="bottom-center">&gt;NAME</text>
+<text x="0" y="0" size="1.27" layer="27" font="vector" ratio="10" align="center">&gt;VALUE</text>
+</package>
 </packages>
 <symbols>
 <symbol name="AVRISP6">
@@ -6073,7 +6077,7 @@ Various common sizes : AA, AAA, 20mm coin cell and 12mm coin cell.</description>
 <text x="-10.16" y="-5.08" size="1.778" layer="95">&gt;NAME</text>
 <text x="-10.16" y="-7.62" size="1.778" layer="96">&gt;VALUE</text>
 <pin name="VCC" x="-15.24" y="7.62" length="middle" direction="pwr"/>
-<pin name="GND" x="-15.24" y="5.08" length="middle" direction="pwr"/>
+<pin name="GND" x="-15.24" y="5.08" length="middle" direction="sup"/>
 <pin name="!RESET" x="15.24" y="7.62" length="middle" direction="out" rot="R180"/>
 <pin name="SCK" x="15.24" y="5.08" length="middle" direction="out" rot="R180"/>
 <pin name="MOSI" x="15.24" y="2.54" length="middle" direction="out" rot="R180"/>
@@ -6086,8 +6090,8 @@ Various common sizes : AA, AAA, 20mm coin cell and 12mm coin cell.</description>
 <wire x1="30.48" y1="10.16" x2="30.48" y2="-7.62" width="0.254" layer="94"/>
 <text x="-30.48" y="10.922" size="1.778" layer="95">&gt;NAME</text>
 <text x="-30.48" y="-10.16" size="1.778" layer="96">&gt;VALUE</text>
-<pin name="(PCINT3/XTAL1/CLKI/OC1B/ADC3)PB4" x="35.56" y="5.08" length="middle" rot="R180"/>
-<pin name="(PCINT4/XTAL2/CLKO/OC1B/ADC2)PB3" x="35.56" y="2.54" length="middle" rot="R180"/>
+<pin name="(PCINT3/XTAL1/CLKI/OC1B/ADC2)PB4" x="35.56" y="5.08" length="middle" rot="R180"/>
+<pin name="(PCINT4/XTAL2/CLKO/OC1B/ADC3)PB3" x="35.56" y="2.54" length="middle" rot="R180"/>
 <pin name="(PCINT5/RESET/ADC0/DW)PB5" x="35.56" y="7.62" length="middle" rot="R180"/>
 <pin name="(SCK/USCK/SCL/ADC1/T0/INT0/PCINT2)PB2" x="35.56" y="0" length="middle" rot="R180"/>
 <pin name="(MISO/DO/AIN1/OC0B/OC1A/PCINT1)PB1" x="35.56" y="-2.54" length="middle" rot="R180"/>
@@ -6194,8 +6198,8 @@ Various common sizes : AA, AAA, 20mm coin cell and 12mm coin cell.</description>
 <connects>
 <connect gate="1" pin="(MISO/DO/AIN1/OC0B/OC1A/PCINT1)PB1" pad="6"/>
 <connect gate="1" pin="(MOSI/DI/SDA/AIN0/OC0A/OC1A/AREF/PCINT0)PB0" pad="5"/>
-<connect gate="1" pin="(PCINT3/XTAL1/CLKI/OC1B/ADC3)PB4" pad="3"/>
-<connect gate="1" pin="(PCINT4/XTAL2/CLKO/OC1B/ADC2)PB3" pad="2"/>
+<connect gate="1" pin="(PCINT3/XTAL1/CLKI/OC1B/ADC2)PB4" pad="3"/>
+<connect gate="1" pin="(PCINT4/XTAL2/CLKO/OC1B/ADC3)PB3" pad="2"/>
 <connect gate="1" pin="(PCINT5/RESET/ADC0/DW)PB5" pad="1"/>
 <connect gate="1" pin="(SCK/USCK/SCL/ADC1/T0/INT0/PCINT2)PB2" pad="7"/>
 <connect gate="1" pin="GND" pad="4"/>
@@ -6209,8 +6213,8 @@ Various common sizes : AA, AAA, 20mm coin cell and 12mm coin cell.</description>
 <connects>
 <connect gate="1" pin="(MISO/DO/AIN1/OC0B/OC1A/PCINT1)PB1" pad="6"/>
 <connect gate="1" pin="(MOSI/DI/SDA/AIN0/OC0A/OC1A/AREF/PCINT0)PB0" pad="5"/>
-<connect gate="1" pin="(PCINT3/XTAL1/CLKI/OC1B/ADC3)PB4" pad="3"/>
-<connect gate="1" pin="(PCINT4/XTAL2/CLKO/OC1B/ADC2)PB3" pad="2"/>
+<connect gate="1" pin="(PCINT3/XTAL1/CLKI/OC1B/ADC2)PB4" pad="3"/>
+<connect gate="1" pin="(PCINT4/XTAL2/CLKO/OC1B/ADC3)PB3" pad="2"/>
 <connect gate="1" pin="(PCINT5/RESET/ADC0/DW)PB5" pad="1"/>
 <connect gate="1" pin="(SCK/USCK/SCL/ADC1/T0/INT0/PCINT2)PB2" pad="7"/>
 <connect gate="1" pin="GND" pad="4"/>
@@ -6224,8 +6228,8 @@ Various common sizes : AA, AAA, 20mm coin cell and 12mm coin cell.</description>
 <connects>
 <connect gate="1" pin="(MISO/DO/AIN1/OC0B/OC1A/PCINT1)PB1" pad="12"/>
 <connect gate="1" pin="(MOSI/DI/SDA/AIN0/OC0A/OC1A/AREF/PCINT0)PB0" pad="11"/>
-<connect gate="1" pin="(PCINT3/XTAL1/CLKI/OC1B/ADC3)PB4" pad="5"/>
-<connect gate="1" pin="(PCINT4/XTAL2/CLKO/OC1B/ADC2)PB3" pad="2"/>
+<connect gate="1" pin="(PCINT3/XTAL1/CLKI/OC1B/ADC2)PB4" pad="5"/>
+<connect gate="1" pin="(PCINT4/XTAL2/CLKO/OC1B/ADC3)PB3" pad="2"/>
 <connect gate="1" pin="(PCINT5/RESET/ADC0/DW)PB5" pad="1"/>
 <connect gate="1" pin="(SCK/USCK/SCL/ADC1/T0/INT0/PCINT2)PB2" pad="14"/>
 <connect gate="1" pin="GND" pad="8"/>
@@ -6239,8 +6243,8 @@ Various common sizes : AA, AAA, 20mm coin cell and 12mm coin cell.</description>
 <connects>
 <connect gate="1" pin="(MISO/DO/AIN1/OC0B/OC1A/PCINT1)PB1" pad="6"/>
 <connect gate="1" pin="(MOSI/DI/SDA/AIN0/OC0A/OC1A/AREF/PCINT0)PB0" pad="5"/>
-<connect gate="1" pin="(PCINT3/XTAL1/CLKI/OC1B/ADC3)PB4" pad="3"/>
-<connect gate="1" pin="(PCINT4/XTAL2/CLKO/OC1B/ADC2)PB3" pad="2"/>
+<connect gate="1" pin="(PCINT3/XTAL1/CLKI/OC1B/ADC2)PB4" pad="3"/>
+<connect gate="1" pin="(PCINT4/XTAL2/CLKO/OC1B/ADC3)PB3" pad="2"/>
 <connect gate="1" pin="(PCINT5/RESET/ADC0/DW)PB5" pad="1"/>
 <connect gate="1" pin="(SCK/USCK/SCL/ADC1/T0/INT0/PCINT2)PB2" pad="7"/>
 <connect gate="1" pin="GND" pad="4"/>
@@ -6358,12 +6362,6 @@ Spark Fun Electronics SKU : Comp-Buzzer</description>
 <description>&lt;b&gt;Electromechanical devices&lt;/b&gt;
 &lt;p&gt;Created by Michael Shimniok &lt;a href="http://www.bot-thoughts.com/"&gt;www.bot-thoughts.com&lt;/a&gt;&lt;/b&gt;</description>
 <packages>
-<package name="OFFBOARD_2">
-<pad name="P$1" x="-1.27" y="0" drill="0.8" shape="octagon"/>
-<pad name="P$2" x="1.27" y="0" drill="0.8" shape="octagon"/>
-<text x="-2.54" y="1.27" size="1.27" layer="25">&gt;NAME</text>
-<text x="-2.54" y="-2.54" size="1.27" layer="27">&gt;VALUE</text>
-</package>
 <package name="EVQ11X09">
 <wire x1="-0.508" y1="3.048" x2="-0.508" y2="-3.048" width="0.127" layer="21"/>
 <wire x1="-0.508" y1="3.048" x2="5.588" y2="3.048" width="0.127" layer="21"/>
@@ -6385,22 +6383,6 @@ Spark Fun Electronics SKU : Comp-Buzzer</description>
 <circle x="0" y="0" radius="1.4142" width="0.127" layer="21"/>
 <pad name="P$1" x="-2.54" y="0" drill="0.8"/>
 <pad name="P$2" x="2.54" y="0" drill="0.8"/>
-</package>
-<package name="6MMTACTILE_RECT">
-<wire x1="-3" y1="-1.75" x2="3" y2="-1.75" width="0.127" layer="21"/>
-<wire x1="3" y1="1.75" x2="-3" y2="1.75" width="0.127" layer="21"/>
-<wire x1="-1.5" y1="0.75" x2="-1.5" y2="-0.75" width="0.127" layer="21"/>
-<wire x1="-1.5" y1="-0.75" x2="1.5" y2="-0.75" width="0.127" layer="21"/>
-<wire x1="1.5" y1="-0.75" x2="1.5" y2="0.75" width="0.127" layer="21"/>
-<wire x1="1.5" y1="0.75" x2="-1.5" y2="0.75" width="0.127" layer="21"/>
-<wire x1="-3" y1="1.7" x2="-3" y2="1.1" width="0.127" layer="21"/>
-<wire x1="-3" y1="-1.7" x2="-3" y2="-1.1" width="0.127" layer="21"/>
-<wire x1="3" y1="1.7" x2="3" y2="1.1" width="0.127" layer="21"/>
-<wire x1="3" y1="-1.7" x2="3" y2="-1.1" width="0.127" layer="21"/>
-<pad name="P$1" x="-3.5" y="0" drill="1.2"/>
-<pad name="P$2" x="3.5" y="0" drill="1.2"/>
-<text x="-3.048" y="2.54" size="1.27" layer="25">&gt;NAME</text>
-<text x="-3.048" y="-3.556" size="1.27" layer="27">&gt;VALUE</text>
 </package>
 <package name="EVQPJ">
 <description>&lt;B&gt;Panasonic EVQ-PJC tact switch&lt;/B&gt;</description>
@@ -6441,13 +6423,32 @@ Spark Fun Electronics SKU : Comp-Buzzer</description>
 <wire x1="2" y1="1" x2="2" y2="-1" width="0.127" layer="51"/>
 <wire x1="2" y1="-1.5" x2="-2" y2="-1.5" width="0.127" layer="21"/>
 <circle x="0" y="0" radius="0.9" width="0.127" layer="21"/>
-<text x="-2.032" y="2.032" size="1.27" layer="25">&gt;NAME</text>
-<text x="-2.032" y="-3.302" size="1.27" layer="27">&gt;VALUE</text>
+<text x="0" y="1.778" size="1.016" layer="27" font="vector" ratio="10" align="bottom-center">&gt;VALUE</text>
 <wire x1="-2" y1="-1" x2="-2" y2="1" width="0.127" layer="51"/>
 <wire x1="2" y1="1.5" x2="2" y2="1" width="0.127" layer="21"/>
 <wire x1="-2" y1="1.5" x2="-2" y2="1" width="0.127" layer="21"/>
 <wire x1="-2" y1="-1.5" x2="-2" y2="-1" width="0.127" layer="21"/>
 <wire x1="2" y1="-1.5" x2="2" y2="-1" width="0.127" layer="21"/>
+</package>
+<package name="OFFBOARD_2">
+<pad name="P$1" x="-1.27" y="0" drill="0.8" shape="octagon"/>
+<pad name="P$2" x="1.27" y="0" drill="0.8" shape="octagon"/>
+<text x="0" y="1.27" size="1.016" layer="27" font="vector" ratio="10" align="bottom-center">&gt;VALUE</text>
+</package>
+<package name="6MMTACTILE_RECT">
+<wire x1="-3" y1="-1.75" x2="3" y2="-1.75" width="0.127" layer="21"/>
+<wire x1="3" y1="1.75" x2="-3" y2="1.75" width="0.127" layer="21"/>
+<wire x1="-1.5" y1="0.75" x2="-1.5" y2="-0.75" width="0.127" layer="21"/>
+<wire x1="-1.5" y1="-0.75" x2="1.5" y2="-0.75" width="0.127" layer="21"/>
+<wire x1="1.5" y1="-0.75" x2="1.5" y2="0.75" width="0.127" layer="21"/>
+<wire x1="1.5" y1="0.75" x2="-1.5" y2="0.75" width="0.127" layer="21"/>
+<wire x1="-3" y1="1.7" x2="-3" y2="1.1" width="0.127" layer="21"/>
+<wire x1="-3" y1="-1.7" x2="-3" y2="-1.1" width="0.127" layer="21"/>
+<wire x1="3" y1="1.7" x2="3" y2="1.1" width="0.127" layer="21"/>
+<wire x1="3" y1="-1.7" x2="3" y2="-1.1" width="0.127" layer="21"/>
+<pad name="P$1" x="-3.5" y="0" drill="1.2"/>
+<pad name="P$2" x="3.5" y="0" drill="1.2"/>
+<text x="0" y="2.032" size="1.016" layer="27" font="vector" ratio="10" align="bottom-center">&gt;VALUE</text>
 </package>
 </packages>
 <symbols>
@@ -6466,13 +6467,13 @@ Spark Fun Electronics SKU : Comp-Buzzer</description>
 <deviceset name="SPST" prefix="S">
 <description>&lt;b&gt;SPST SWITCH&lt;/b&gt;</description>
 <gates>
-<gate name="G$1" symbol="SPST" x="0" y="0"/>
+<gate name="S1" symbol="SPST" x="0" y="0"/>
 </gates>
 <devices>
 <device name="_OFFBOARD" package="OFFBOARD_2">
 <connects>
-<connect gate="G$1" pin="P" pad="P$1"/>
-<connect gate="G$1" pin="S" pad="P$2"/>
+<connect gate="S1" pin="P" pad="P$1"/>
+<connect gate="S1" pin="S" pad="P$2"/>
 </connects>
 <technologies>
 <technology name=""/>
@@ -6480,8 +6481,8 @@ Spark Fun Electronics SKU : Comp-Buzzer</description>
 </device>
 <device name="_TACT1" package="EVQ11X09">
 <connects>
-<connect gate="G$1" pin="P" pad="1"/>
-<connect gate="G$1" pin="S" pad="2"/>
+<connect gate="S1" pin="P" pad="1"/>
+<connect gate="S1" pin="S" pad="2"/>
 </connects>
 <technologies>
 <technology name=""/>
@@ -6489,8 +6490,8 @@ Spark Fun Electronics SKU : Comp-Buzzer</description>
 </device>
 <device name="_TACT2" package="6MMTACTILE">
 <connects>
-<connect gate="G$1" pin="P" pad="P$1"/>
-<connect gate="G$1" pin="S" pad="P$2"/>
+<connect gate="S1" pin="P" pad="P$1"/>
+<connect gate="S1" pin="S" pad="P$2"/>
 </connects>
 <technologies>
 <technology name=""/>
@@ -6498,8 +6499,8 @@ Spark Fun Electronics SKU : Comp-Buzzer</description>
 </device>
 <device name="_TAC_RECT1" package="6MMTACTILE_RECT">
 <connects>
-<connect gate="G$1" pin="P" pad="P$1"/>
-<connect gate="G$1" pin="S" pad="P$2"/>
+<connect gate="S1" pin="P" pad="P$1"/>
+<connect gate="S1" pin="S" pad="P$2"/>
 </connects>
 <technologies>
 <technology name=""/>
@@ -6507,8 +6508,8 @@ Spark Fun Electronics SKU : Comp-Buzzer</description>
 </device>
 <device name="_TACT_RECT2" package="EVQPJ">
 <connects>
-<connect gate="G$1" pin="P" pad="A"/>
-<connect gate="G$1" pin="S" pad="B"/>
+<connect gate="S1" pin="P" pad="A"/>
+<connect gate="S1" pin="S" pad="B"/>
 </connects>
 <technologies>
 <technology name=""/>
@@ -6516,8 +6517,8 @@ Spark Fun Electronics SKU : Comp-Buzzer</description>
 </device>
 <device name="_OFFBOARD_LG" package="OFFBOARD_2_LG">
 <connects>
-<connect gate="G$1" pin="P" pad="P$1"/>
-<connect gate="G$1" pin="S" pad="P$2"/>
+<connect gate="S1" pin="P" pad="P$1"/>
+<connect gate="S1" pin="S" pad="P$2"/>
 </connects>
 <technologies>
 <technology name=""/>
@@ -6525,8 +6526,8 @@ Spark Fun Electronics SKU : Comp-Buzzer</description>
 </device>
 <device name="_TACT_RECT_SMD" package="6MMTACTTILE_RECT_SMD">
 <connects>
-<connect gate="G$1" pin="P" pad="P$1"/>
-<connect gate="G$1" pin="S" pad="P$2"/>
+<connect gate="S1" pin="P" pad="P$1"/>
+<connect gate="S1" pin="S" pad="P$2"/>
 </connects>
 <technologies>
 <technology name=""/>
@@ -6534,8 +6535,8 @@ Spark Fun Electronics SKU : Comp-Buzzer</description>
 </device>
 <device name="_3X4X2" package="3X4X2TACT">
 <connects>
-<connect gate="G$1" pin="P" pad="P$1"/>
-<connect gate="G$1" pin="S" pad="P$2"/>
+<connect gate="S1" pin="P" pad="P$1"/>
+<connect gate="S1" pin="S" pad="P$2"/>
 </connects>
 <technologies>
 <technology name=""/>
@@ -6600,6 +6601,7 @@ Spark Fun Electronics SKU : Comp-Buzzer</description>
 <plain>
 <text x="160.02" y="25.4" size="2.54" layer="94">Ultra Micro Lost Model Alarm</text>
 <text x="231.14" y="25.4" size="2.54" layer="94">R0.4</text>
+<text x="104.14" y="76.2" size="1.778" layer="97">Use 1.1V internal reference</text>
 </plain>
 <instances>
 <instance part="R1" gate="G$1" x="99.06" y="119.38" rot="R270">
@@ -6630,7 +6632,7 @@ Spark Fun Electronics SKU : Comp-Buzzer</description>
 <instance part="J1" gate="A" x="27.94" y="66.04"/>
 <instance part="SUPPLY2" gate="GND" x="10.16" y="55.88"/>
 <instance part="P+2" gate="VCC" x="10.16" y="88.9"/>
-<instance part="S1" gate="G$1" x="83.82" y="71.12" rot="R90"/>
+<instance part="S1" gate="S1" x="83.82" y="71.12" rot="R90"/>
 <instance part="IC1" gate="1" x="154.94" y="99.06" rot="MR0"/>
 <instance part="PAD3" gate="G$1" x="223.52" y="58.42" rot="R180">
 <attribute name="BOM" x="223.52" y="58.42" size="1.778" layer="96" display="off"/>
@@ -6711,7 +6713,7 @@ Spark Fun Electronics SKU : Comp-Buzzer</description>
 <pinref part="C1" gate="G$1" pin="2"/>
 <pinref part="SUPPLY1" gate="GND" pin="GND"/>
 <pinref part="BAT" gate="G$1" pin="-"/>
-<pinref part="S1" gate="G$1" pin="P"/>
+<pinref part="S1" gate="S1" pin="P"/>
 <wire x1="83.82" y1="66.04" x2="83.82" y2="58.42" width="0.1524" layer="91"/>
 <junction x="83.82" y="58.42"/>
 <pinref part="IC1" gate="1" pin="GND"/>
@@ -6755,15 +6757,15 @@ Spark Fun Electronics SKU : Comp-Buzzer</description>
 <net name="SWITCH" class="0">
 <segment>
 <label x="101.6" y="104.14" size="1.778" layer="95"/>
-<pinref part="IC1" gate="1" pin="(PCINT3/XTAL1/CLKI/OC1B/ADC3)PB4"/>
-<pinref part="S1" gate="G$1" pin="S"/>
+<pinref part="IC1" gate="1" pin="(PCINT3/XTAL1/CLKI/OC1B/ADC2)PB4"/>
+<pinref part="S1" gate="S1" pin="S"/>
 <wire x1="83.82" y1="104.14" x2="119.38" y2="104.14" width="0.1524" layer="91"/>
 <wire x1="83.82" y1="76.2" x2="83.82" y2="104.14" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="ADC" class="0">
 <segment>
-<pinref part="IC1" gate="1" pin="(PCINT4/XTAL2/CLKO/OC1B/ADC2)PB3"/>
+<pinref part="IC1" gate="1" pin="(PCINT4/XTAL2/CLKO/OC1B/ADC3)PB3"/>
 <wire x1="91.44" y1="101.6" x2="119.38" y2="101.6" width="0.1524" layer="91"/>
 <label x="101.6" y="101.6" size="1.778" layer="95"/>
 <wire x1="91.44" y1="101.6" x2="91.44" y2="76.2" width="0.1524" layer="91"/>
