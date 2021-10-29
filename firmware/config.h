@@ -10,7 +10,8 @@
 #define ADC     PB3     // ATtiny25 Pin 2
 #define ADC_EN  PB0     // ATtiny25 Pin 5
 
-#define PERIOD		  10		// Delay period between signal (seconds) -- initial period
-#define PERIOD_LOW  60		// If battery voltage is very low, use long period
+#define WARN_PERIOD		   10   // Delay period between signal (seconds) -- initial period
+#define BATT_PERIOD     600   // Time in seconds between checking battery voltage
+#define WARN_PERIOD_LOW  60   // If battery voltage is low, use longer period between beeps
 
 #endif

@@ -10,7 +10,7 @@
 
 typedef uint8_t bool;
 
-void initSwitch(void);
-bool switchPressed(void);
+void init_switch(void);
+bool switch_pressed(void);
 
 #endif

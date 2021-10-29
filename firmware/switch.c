@@ -3,7 +3,7 @@
 
 #define pressed() ((PINB & _BV(SWITCH)) == 0);
 
-void initSwitch(void)
+void init_switch(void)
 {
   // initialize ISR
 
@@ -14,7 +14,7 @@ void initSwitch(void)
   PORTB |= _BV(SWITCH);
 }
 
-bool switchPressed(void)
+bool switch_pressed(void)
 {
   bool result = 0;
 
