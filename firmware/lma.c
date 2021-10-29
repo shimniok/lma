@@ -90,9 +90,9 @@ void loop() {
 	uint16_t next_warn_sec = 0;                // Keeps track of next time to warn/sos
 	uint16_t warn_period = WARN_PERIOD;        // Warn every WARN_PERIOD (changed to WARN_PERIOD_LOW when batt low)
 	//uint16_t next_batt_sec = BATT_PERIOD;      // keeps track of next time to check battery
-	uint16_t next_batt_sec = 30;
+	uint16_t next_batt_sec = 60;
 	// uint16_t warn_begin_sec = warn_min*60;     // Delay (in seconds) before Warning start sounding
-	uint16_t warn_begin_sec = 10;
+	uint16_t warn_begin_sec = 15;
 	uint16_t sos_begin_sec = warn_begin_sec*2; // Delay (in seconds) before SOS starts sounding
 	char *msg = NULL;
 
@@ -102,28 +102,32 @@ void loop() {
 		sleep_mode();
 
 		// check battery voltage periodically
+		/*
 		if (after(next_batt_sec)) {
+#ifdef DEBUG			
 			message("-...");
+#endif
 			if (!checkVoltage()) {
 				warn_period = WARN_PERIOD_LOW; // if batt low, increase warning period if battery low
 				// TODO: prevent further battery checks
 			}
 			next_batt_sec += BATT_PERIOD;  // check again in BATT_PERIOD seconds
 		}
+		*/
 
-		// Change msg after warning time or sos time exceeded
 		if (!msg) {
+			// Change msg after warning time or sos time exceeded
 			if (after(sos_begin_sec)) {
 				msg = SOS;
 			} else if (after(warn_begin_sec)) {
 				msg = WARNING;
+				next_warn_sec = seconds; // reset next warning to now
 			}
-		} else {
-			// send message if warn_period exceeded
-			if (after(next_warn_sec)) {
-				next_warn_sec += warn_period;
-				message(msg);
-			}
+		}
+
+		if (msg && after(next_warn_sec)) {
+			message(msg);
+			next_warn_sec += warn_period;
 		}
 
 	}
