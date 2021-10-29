@@ -18,6 +18,8 @@ void slowClock()
 	f_prescaler = F_PRESCALER;
 }
 
+// TODO: fix bug in delay that happens before slowClock called
+
 // delay routine that is aware of F_CLKDIV
 void wait_ms(uint16_t ms)
 {
