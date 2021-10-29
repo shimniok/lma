@@ -114,7 +114,7 @@ uint16_t getVoltage()
 
 	// Read voltage, multiple samples w/ delay between each
 	uint16_t sum = 0;
-	for (i = 0; i < 32; i++) {
+	for (i = 0; i < 16; i++) {
 		// start conversion
 		ADCSRA |= (1<<ADSC);
 		// wait for result
@@ -124,16 +124,16 @@ uint16_t getVoltage()
 		// reset ADIF
 		ADCSRA |= _BV(ADIF);
 		// wait around for a little while
-		wait_ms(20);
+		wait_ms(10);
 	}
-	uint16_t result = sum / 32; // average; divide by 32
+	uint16_t avg = sum / 16;
 
 	adc_off();
 
 	// ADC = Vin * 1024 / Vref
 	// Vin = (1024 / 1.1) / ADC result
 	// x 1000 for 3 digits of precision
-	uint16_t volts = (1100UL * result) / 1024UL;
+	uint16_t volts = (1100UL * avg) / 1024UL;
 
 	divider_off();
 
