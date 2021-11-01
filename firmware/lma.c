@@ -133,7 +133,6 @@ int main() {
 
 	init_battery_thresh();
 
-//	wait_ms(2000); // just in case slower clock screws up programming...
 	slowClock();
 
 	config();
