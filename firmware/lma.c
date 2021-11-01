@@ -30,7 +30,7 @@
 
 #define after(x) (seconds >= (x))
 
-EEMEM uint8_t cfg_rccal = 0;		 // EEPROM: RC oscillator calibration
+EEMEM uint8_t cfg_rccal = 0;	 // EEPROM: RC oscillator calibration
 EEMEM uint8_t cfg_warn_min = 5;  // EEPROM: Delay before warning starts sounding, in minutes.
 uint8_t warn_min = 0; // minutes before warning beeps begin
 
@@ -43,18 +43,21 @@ void config() {
 	// warning time, in 5-minute increments, max 30 minutes
 	// SOS time is 2 x warning time.
 	//
-	while (switch_pressed()) {
-		if (switch_pressed()) {
+	if (switch_pressed()) {
+		message(CONFIG);
+		wait_ms(2000);
+		while (switch_pressed()) {
 			// Increment warning time by 5 minutes
 			warn_min += 5;
 			// Maximum warning time is 30 minutes
 			if (warn_min > 30) warn_min = 5;
 			// Save the new warning time
 			eeprom_update_byte(&cfg_warn_min, warn_min);
+			// Each beep represents 5 min
+			fives(warn_min);
+			// pause between increments
+			wait_ms(3000);
 		}
-		number(warn_min);
-		// pause between increments
-		wait_ms(3000);
 	}
 }
 

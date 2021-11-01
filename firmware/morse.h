@@ -16,6 +16,7 @@ void dit();
 void dah();
 void space();
 void message(char *m);
+void fives(int n);
 void number(uint8_t n);
 
 #endif

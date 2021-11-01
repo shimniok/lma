@@ -43,6 +43,17 @@ void message(char *m) {
 	}
 }
 
+// each beep represents 5 minutes; 3 beeps = 15 min, 5 beeps = 25 min
+void fives(int n) 
+{
+	if (n) {
+		do {
+			dah();
+		} while ((n -= 5) > 0);
+		space();
+	}
+}
+
 // not actually morse numbers..
 void number(uint8_t n)
 {
