@@ -1,7 +1,7 @@
 #ifndef _CONFIG_H
 #define _CONFIG_H
 
-#define DEBUG 1
+//#define DEBUG 1
 
 #define BUZZA   PB1     // ATtiny25 Pin 6
 #define BUZZB   PB2     // ATtiny25 Pin 7
